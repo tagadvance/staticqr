@@ -610,6 +610,9 @@ export function encode(text, options = {}) {
     mask,
     size: matrix.size,
     modules: matrix.modules,
+    // Renderers need this: finder, timing and alignment patterns have to stay
+    // legible for a scanner to lock on, whatever is done with the data modules.
+    isFunction: matrix.isFunction,
   };
 }
 
