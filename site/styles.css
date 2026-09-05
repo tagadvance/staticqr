@@ -387,6 +387,12 @@ footer.site .shell {
 	align-items: baseline;
 }
 
+.colophon {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 0.4rem;
+}
+
 .langs {
 	display: flex;
 	flex-wrap: wrap;

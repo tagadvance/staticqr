@@ -14,6 +14,8 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 
 export const ORIGIN = 'https://staticqr.com';
+export const REPOSITORY = 'https://github.com/tagadvance/Crappy-QR';
+export const SPONSOR = 'https://github.com/sponsors/tagadvance';
 export const DEFAULT_LANGUAGE = 'en';
 
 /** Locale codes for Open Graph, which wants the underscored form. */
@@ -113,7 +115,10 @@ function footer(lang, page, strings, catalogue) {
 		.join('');
 
 	return `<footer class="site"><div class="shell">
-<span>${escapeHtml(strings.footer.licence)} <a href="https://github.com/tagadvance/Crappy-QR">${escapeHtml(strings.footer.sourceOn)}</a></span>
+<span class="colophon"><a href="${REPOSITORY}">${escapeHtml(strings.footer.sourceOn)}</a>
+&middot; <a href="${SPONSOR}">${escapeHtml(strings.footer.sponsor)}</a>
+&middot; ${escapeHtml(strings.footer.licence)}
+&middot; Copyright &copy; ${new Date().getFullYear()} Tag Spilman</span>
 <ul class="langs" aria-label="${escapeHtml(strings.nav.language)}">${languages}</ul>
 </div></footer>`;
 }

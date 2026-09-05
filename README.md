@@ -4,6 +4,7 @@
 [![Deploy to Pages](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml/badge.svg)](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Site](https://img.shields.io/badge/site-staticqr.com-6b4423)](https://staticqr.com)
+[![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-db61a2)](https://github.com/sponsors/tagadvance)
 
 A QR code generator that runs entirely in your browser. Nothing you type is
 transmitted, because there is nowhere to transmit it to. Live at
@@ -126,6 +127,11 @@ DNS needs an `ALIAS`/`ANAME` at the apex, or these four `A` records:
 Add a `CNAME` for `www` pointing at `tagadvance.github.io`, then enable
 **Enforce HTTPS** in the repository's Pages settings once the certificate has
 been issued.
+
+## Sponsor
+
+If this saved you from a substituted address, or you just enjoy the poo,
+[sponsorship is welcome](https://github.com/sponsors/tagadvance).
 
 ## Licence
 

@@ -166,8 +166,8 @@
     ]
   },
   "footer": {
-    "builtBy": "制作: {author}",
     "sourceOn": "GitHubのソースコード",
-    "licence": "MITライセンス。"
+    "sponsor": "スポンサーになる",
+    "licence": "MITライセンス"
   }
 }

@@ -166,8 +166,8 @@
     ]
   },
   "footer": {
-    "builtBy": "Built by {author}.",
     "sourceOn": "Source on GitHub",
-    "licence": "MIT licensed."
+    "sponsor": "Sponsor",
+    "licence": "MIT licensed"
   }
 }

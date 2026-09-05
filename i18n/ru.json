@@ -166,8 +166,8 @@
     ]
   },
   "footer": {
-    "builtBy": "Сделал {author}.",
     "sourceOn": "Исходный код на GitHub",
-    "licence": "Лицензия MIT."
+    "sponsor": "Поддержать",
+    "licence": "Лицензия MIT"
   }
 }

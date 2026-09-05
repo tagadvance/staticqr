@@ -166,8 +166,8 @@
     ]
   },
   "footer": {
-    "builtBy": "Creado por {author}.",
     "sourceOn": "Código en GitHub",
-    "licence": "Licencia MIT."
+    "sponsor": "Patrocinar",
+    "licence": "Licencia MIT"
   }
 }
