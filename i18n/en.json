@@ -77,6 +77,7 @@
     "expectedPlaceholder": "Paste the address or link you were given",
     "decodedHeading": "What this code contains",
     "noCode": "No QR code was found in that image. Try a sharper or less cropped picture.",
+    "unreadable": "That file could not be read as an image. Try a PNG or JPEG screenshot of the code.",
     "matchTitle": "This matches what you expected.",
     "matchBody": "The code decodes to exactly the text you pasted.",
     "mismatchTitle": "This does not match what you expected.",

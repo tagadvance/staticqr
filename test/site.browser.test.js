@@ -44,15 +44,30 @@ const PAGES = ['index', 'verify', 'safety'];
 
 const ADDRESS = 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq';
 
-async function withSite(run) {
+async function withSite(run, launchOptions = {}) {
 	const site = await listen();
-	const browser = await chromium.launch();
+	const browser = await chromium.launch(launchOptions);
 	try {
 		return await run(browser, site.origin);
 	} finally {
 		await browser.close();
 		await site.stop();
 	}
+}
+
+/** Draw a code inside the page and hand it back as PNG bytes. */
+async function makeCode(page, text, moduleSize) {
+	const base64 = await page.evaluate(
+		async ({ text, moduleSize }) => {
+			const { encode } = await import('/assets/qr.js');
+			const { renderCanvas } = await import('/assets/render.js');
+			const canvas = document.createElement('canvas');
+			renderCanvas(canvas, encode(text, { errorCorrection: 'H' }), { moduleSize });
+			return canvas.toDataURL().split(',')[1];
+		},
+		{ text, moduleSize },
+	);
+	return { name: 'code.png', mimeType: 'image/png', buffer: Buffer.from(base64, 'base64') };
 }
 
 /** Load a page and fail on any console error, page error or failed request. */
@@ -190,4 +205,149 @@ test('the checker decodes an uploaded code and spots a mismatch', options, async
 	});
 
 	assert.deepEqual(failures, []);
+});
+
+test(
+	'an unreadable file replaces the previous result rather than leaving it',
+	options,
+	async () => {
+		await withSite(async (browser, origin) => {
+			const { page } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'verify'));
+			await page.setInputFiles('#file', await makeCode(page, 'https://example.com', 8));
+			await page.waitForSelector('#result .code');
+
+			await page.setInputFiles('#file', {
+				name: 'notes.txt',
+				mimeType: 'text/plain',
+				buffer: Buffer.from('not an image at all'),
+			});
+			await page.waitForSelector('#result .notice.danger', { timeout: 5000 });
+
+			assert.equal(
+				await page.$('#result .code'),
+				null,
+				"the previous file's decoded value must not survive",
+			);
+			await page.close();
+		});
+	},
+);
+
+test('the newest image wins when two decodes overlap', options, async () => {
+	await withSite(async (browser, origin) => {
+		const { page } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'verify'));
+		const dense = await makeCode(page, 'A'.repeat(1200), 20);
+		const small = await makeCode(page, 'https://example.com', 8);
+
+		// The dense one takes far longer to decode, so without a guard it
+		// finishes last and overwrites the result the user actually asked for.
+		await page.setInputFiles('#file', dense);
+		await page.waitForTimeout(15);
+		await page.setInputFiles('#file', small);
+		await page.waitForTimeout(2000);
+
+		assert.equal(await page.textContent('#result .code'), 'https://example.com');
+		await page.close();
+	});
+});
+
+test('repeated camera clicks never leave a track running', options, async () => {
+	await withSite(
+		async (browser, origin) => {
+			const { page } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'verify'));
+			await page.evaluate(() => {
+				window.openedStreams = [];
+				const original = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+				navigator.mediaDevices.getUserMedia = async (constraints) => {
+					const stream = await original(constraints);
+					window.openedStreams.push(stream);
+					return stream;
+				};
+			});
+
+			// Synchronous clicks, which is what a double click actually is. The
+			// stream is acquired across two awaits, so a second start used to
+			// orphan the first one with nothing left holding a reference to it.
+			await page.evaluate(() => {
+				const button = document.querySelector('#camera');
+				button.click();
+				button.click();
+				button.click();
+				button.click();
+			});
+			await page.waitForTimeout(1500);
+
+			const opened = await page.evaluate(() => window.openedStreams.length);
+			assert.equal(opened, 1, `expected one stream, got ${opened}`);
+
+			await page.evaluate(() => {
+				const button = document.querySelector('#camera');
+				if (button.textContent.trim() !== 'Use camera') {
+					button.click();
+				}
+			});
+			await page.waitForTimeout(500);
+			const live = await page.evaluate(
+				() =>
+					window.openedStreams.flatMap((s) => s.getTracks()).filter((t) => t.readyState === 'live')
+						.length,
+			);
+			assert.equal(live, 0, 'every track must be stopped');
+			await page.close();
+		},
+		{ args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] },
+	);
+});
+
+test('the warning and readback do not outlive the text they describe', options, async () => {
+	await withSite(async (browser, origin) => {
+		const { page } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'index'));
+		const type = (value) =>
+			page.evaluate((value) => {
+				const field = document.querySelector('#data');
+				field.value = value;
+				field.dispatchEvent(new Event('input'));
+			}, value);
+
+		await page.selectOption('#size', '24');
+		await page.selectOption('#style', 'poo');
+		await type('bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq');
+		await page.waitForFunction(() => !document.querySelector('#warning').hidden, { timeout: 8000 });
+
+		await type('');
+		let stale = 0;
+		for (let i = 0; i < 40; i++) {
+			if (
+				await page.evaluate(
+					() =>
+						document.querySelector('#data').value === '' &&
+						(!document.querySelector('#warning').hidden ||
+							!document.querySelector('#readback').hidden),
+				)
+			) {
+				stale += 1;
+			}
+			await page.waitForTimeout(16);
+		}
+		assert.equal(stale, 0, 'a panel described text that was no longer in the box');
+		await page.close();
+	});
+});
+
+test('a code that fails its own readback cannot be downloaded', options, async () => {
+	await withSite(async (browser, origin) => {
+		const { page } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'index'));
+		await page.evaluate(() => {
+			window.jsQR = () => ({ data: 'something else entirely' });
+		});
+		await page.fill('#data', 'https://staticqr.com/');
+		await page.waitForFunction(
+			() => document.querySelector('#readback').className.includes('danger'),
+			{ timeout: 8000 },
+		);
+
+		assert.equal(await page.isDisabled('#download-png'), true);
+		assert.equal(await page.isDisabled('#download-svg'), true);
+		await page.close();
+	});
 });

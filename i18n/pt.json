@@ -77,6 +77,7 @@
     "expectedPlaceholder": "Cole o endereço ou a ligação que lhe deram",
     "decodedHeading": "O que este código contém",
     "noCode": "Não foi encontrado nenhum código QR nessa imagem. Experimente uma fotografia mais nítida ou menos cortada.",
+    "unreadable": "Esse ficheiro não pôde ser lido como imagem. Experimente uma captura PNG ou JPEG do código.",
     "matchTitle": "Corresponde ao que esperava.",
     "matchBody": "O código descodifica exatamente para o texto que colou.",
     "mismatchTitle": "Isto não corresponde ao que esperava.",

@@ -82,8 +82,11 @@ function checksumLine(report) {
 	return copy.checksumUnknown;
 }
 
-async function renderWarning(text) {
+async function renderWarning(text, id) {
 	const report = await inspect(text);
+	if (id !== generation) {
+		return;
+	}
 	warning.replaceChildren();
 	if (report === null) {
 		warning.hidden = true;
@@ -109,6 +112,7 @@ async function renderWarning(text) {
 	warning.hidden = false;
 }
 
+/** Returns 'pass', 'fail' or 'unknown'. */
 function renderReadback(text) {
 	readback.replaceChildren();
 	readback.hidden = false;
@@ -117,7 +121,7 @@ function renderReadback(text) {
 	if (!decoderAvailable()) {
 		readback.className = 'notice';
 		readback.append(element('h2', null, copy.heading), element('p', null, copy.unsupported));
-		return;
+		return 'unknown';
 	}
 
 	// Decode the picture that was just drawn, rather than the matrix it came
@@ -129,26 +133,29 @@ function renderReadback(text) {
 	if (decoded === text) {
 		readback.className = 'notice ok';
 		readback.append(element('h2', null, copy.passTitle), element('p', null, copy.passBody));
-		return;
+		return 'pass';
 	}
 
 	readback.className = 'notice danger';
-	const fallback = element('button', 'secondary', copy.failFallback);
-	fallback.type = 'button';
-	fallback.addEventListener('click', () => {
-		styleSelect.value = 'plain';
-		update();
-	});
 	readback.append(element('h2', null, copy.failTitle), element('p', null, copy.failBody));
 	if (decoded !== null) {
 		readback.append(element('p', null, copy.decodedLabel), element('code', 'code', decoded));
 	}
-	readback.append(fallback);
+	if (styleSelect.value !== 'plain') {
+		const fallback = element('button', 'secondary', copy.failFallback);
+		fallback.type = 'button';
+		fallback.addEventListener('click', () => {
+			styleSelect.value = 'plain';
+			scheduleUpdate();
+		});
+		readback.append(fallback);
+	}
+	return 'fail';
 }
 
-function setDownloads() {
-	downloadPng.disabled = false;
-	downloadSvg.disabled = false;
+function setDownloads(enabled) {
+	downloadPng.disabled = !enabled;
+	downloadSvg.disabled = !enabled;
 
 	downloadPng.onclick = () => {
 		canvas.toBlob((blob) => saveBlob(blob, 'qr.png'));
@@ -174,6 +181,8 @@ function saveBlob(blob, filename) {
 }
 
 function clear(message) {
+	generation += 1;
+	renderedFor = null;
 	output.replaceChildren(placeholder);
 	placeholder.textContent = message;
 	placeholder.hidden = false;
@@ -185,7 +194,16 @@ function clear(message) {
 	current = null;
 }
 
+// Bumped by every update so a result that arrives late can tell it is stale.
+let generation = 0;
+
+// The exact text the warning and readback panels currently describe. Rendering
+// is debounced, so without this they keep making claims about a string the
+// user has already edited or deleted.
+let renderedFor = null;
+
 async function update() {
+	const id = ++generation;
 	const text = input.value;
 	if (text.trim() === '') {
 		clear(strings.index.emptyState);
@@ -217,9 +235,10 @@ async function update() {
 		level,
 	});
 
-	setDownloads();
-	renderReadback(text);
-	await renderWarning(text);
+	const verdict = renderReadback(text);
+	setDownloads(verdict !== 'fail');
+	await renderWarning(text, id);
+	renderedFor = text;
 }
 
 let pending = null;
@@ -234,7 +253,17 @@ function scheduleUpdate() {
 }
 
 form.addEventListener('submit', (event) => event.preventDefault());
-input.addEventListener('input', scheduleUpdate);
+
+input.addEventListener('input', () => {
+	// These two panels make claims about a specific string. The moment it stops
+	// being what is in the box they are wrong, and the debounce means they
+	// would otherwise stay wrong for a tenth of a second.
+	if (renderedFor !== null && input.value !== renderedFor) {
+		warning.hidden = true;
+		readback.hidden = true;
+	}
+	scheduleUpdate();
+});
 for (const control of [levelSelect, sizeSelect, styleSelect]) {
 	control.addEventListener('change', scheduleUpdate);
 }
