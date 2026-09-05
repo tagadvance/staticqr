@@ -148,7 +148,7 @@ function indexBody(lang, strings) {
 </div>
 <div>
 <label for="style">${escapeHtml(index.styleLabel)}</label>
-<select id="style">${option('poo', index.stylePoo, true)}${option('plain', index.stylePlain)}</select>
+<select id="style">${option('plain', index.stylePlain, true)}${option('poo', index.stylePoo)}</select>
 </div>
 </div>
 </form>

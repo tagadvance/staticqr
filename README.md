@@ -1,12 +1,17 @@
-# Crappy QR
+# Static QR
 
 [![CI](https://github.com/tagadvance/Crappy-QR/actions/workflows/ci.yml/badge.svg)](https://github.com/tagadvance/Crappy-QR/actions/workflows/ci.yml)
 [![Deploy to Pages](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml/badge.svg)](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Site](https://img.shields.io/badge/site-staticqr.com-6b4423)](https://staticqr.com)
 
-A QR code generator that runs entirely in your browser and draws the data
-modules as piles of poo. Live at **[staticqr.com](https://staticqr.com)**.
+A QR code generator that runs entirely in your browser. Nothing you type is
+transmitted, because there is nowhere to transmit it to. Live at
+**[staticqr.com](https://staticqr.com)**.
+
+It also draws QR codes out of the pile of poo emoji, which is how the project
+started and why the repository is called Crappy-QR. That is a style option now,
+rather than the default.
 
 ![A QR code drawn with the pile of poo emoji](/images/qr-test.png?raw=true 'QR code to this repository')
 
@@ -39,7 +44,7 @@ working.
 - **Speaks** English, Spanish, Portuguese, French, Russian and Japanese, each
   at its own URL.
 
-## Does it actually scan?
+## Does the poo mode actually scan?
 
 Yes, and that took some work. Two things are load-bearing:
 

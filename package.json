@@ -1,8 +1,8 @@
 {
-  "name": "crappy-qr",
+  "name": "static-qr",
   "version": "2.0.0",
   "private": true,
-  "description": "A QR code generator that runs entirely in your browser, drawn with the pile-of-poo emoji",
+  "description": "A QR code generator that runs entirely in your browser and never sends your data anywhere",
   "homepage": "https://staticqr.com",
   "repository": {
     "type": "git",
