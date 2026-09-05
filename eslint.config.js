@@ -35,8 +35,10 @@ export default [
 
 	{
 		// The build, the tests and the dev server run in Node, and the browser
-		// tests evaluate code inside a page as well.
-		files: ['tools/**/*.js', 'tools/**/*.mjs', 'test/**/*.js', 'eslint.config.js'],
+		// tests evaluate code inside a page as well. The last two patterns are
+		// the catch-all: without them a file outside the globs above gets no
+		// globals at all and lints as pure noise.
+		files: ['tools/**/*.mjs', 'test/**/*.js', '*.js', '*.mjs'],
 		languageOptions: {
 			globals: { ...globals.node, ...globals.browser },
 		},

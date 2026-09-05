@@ -29,9 +29,15 @@ attacker.
 
 So this generator has no server. Nothing you type is transmitted, because
 there is nowhere to transmit it to. The content security policy sets
-`connect-src 'none'`, which means the browser enforces that rather than asking
-you to believe it. Disconnect from the network, reload, and the page keeps
-working.
+`connect-src 'none'`, so the browser itself blocks the ways a script would
+normally phone home — `fetch`, XHR, beacons, WebSockets, and any cross-origin
+load — rather than asking you to take that on trust.
+
+Be precise about what that does and does not prove: a policy cannot stop a
+page navigating away with your data in the URL, and it cannot stop a
+same-origin request carrying it in a query string. Nothing here does either,
+and the whole thing is short enough that you can check. Disconnect from the
+network, reload, and the page keeps working.
 
 ## What it does
 

@@ -18,7 +18,9 @@ export const REPOSITORY = 'https://github.com/tagadvance/staticqr';
 export const SPONSOR = 'https://github.com/sponsors/tagadvance';
 export const DEFAULT_LANGUAGE = 'en';
 
-/** Locale codes for Open Graph, which wants the underscored form. */
+/** Open Graph wants the underscored form; a language with no entry falls back. */
+const ogLocale = (lang) => OG_LOCALES[lang] ?? lang;
+
 const OG_LOCALES = {
 	en: 'en_US',
 	es: 'es_ES',
@@ -66,7 +68,7 @@ function head({ lang, page, strings, languages, title, description }) {
 
 	const ogAlternates = languages
 		.filter((other) => other !== lang)
-		.map((other) => `<meta property="og:locale:alternate" content="${OG_LOCALES[other]}">`)
+		.map((other) => `<meta property="og:locale:alternate" content="${ogLocale(other)}">`)
 		.join('');
 
 	return `<meta charset="utf-8">
@@ -85,7 +87,7 @@ ${alternates}<link rel="alternate" hreflang="x-default" href="${pageUrl(DEFAULT_
 <meta property="og:image" content="${ORIGIN}/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="${OG_LOCALES[lang]}">
+<meta property="og:locale" content="${ogLocale(lang)}">
 ${ogAlternates}<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/styles.css">`;
