@@ -1,0 +1,154 @@
+{
+  "lang": "pt",
+  "name": "Português",
+  "dir": "ltr",
+  "site": {
+    "name": "Static QR",
+    "tagline": "Um gerador de códigos QR que nunca envia os seus dados para lado nenhum."
+  },
+  "nav": {
+    "generate": "Gerar",
+    "verify": "Verificar um código",
+    "safety": "Porque isto importa",
+    "language": "Idioma"
+  },
+  "common": {
+    "offlineProof": "Desligue a ligação à internet e recarregue a página. Continua a funcionar, porque não há nada com que comunicar.",
+    "sourceLink": "Ler o código-fonte",
+    "skipToContent": "Saltar para o conteúdo"
+  },
+  "index": {
+    "title": "Gerador de códigos QR que corre inteiramente no seu navegador",
+    "description": "Gere um código QR sem enviar nada. Tudo acontece no seu navegador, o resultado é verificado voltando a lê-lo e nada é alguma vez enviado para um servidor.",
+    "h1": "Crie um código QR sem confiar em ninguém",
+    "intro": "Escreva o que quiser abaixo e esta página codifica-o num código QR. A codificação acontece no seu navegador, com código que pode ler. Nada do que escrever é enviado, registado ou visto por um servidor, porque não existe servidor.",
+    "inputLabel": "Texto, URL ou endereço a codificar",
+    "inputPlaceholder": "https://exemplo.com",
+    "optionsHeading": "Opções",
+    "errorCorrectionLabel": "Correção de erros",
+    "errorCorrectionHelp": "Níveis mais altos resistem a mais danos, mas tornam o código mais denso.",
+    "moduleSizeLabel": "Tamanho",
+    "styleLabel": "Estilo",
+    "stylePoo": "Monte de cocó",
+    "stylePlain": "Quadrados simples",
+    "downloadPng": "Transferir PNG",
+    "downloadSvg": "Transferir SVG",
+    "resultHeading": "O seu código",
+    "emptyState": "O seu código QR aparecerá aqui.",
+    "tooLong": "São demasiados dados para um único código QR. Experimente algo mais curto ou baixe o nível de correção de erros.",
+    "metaVersion": "Versão {version}, {size}×{size} módulos, correção de erros {level}",
+    "whyPoo": "Porque é feito de cocó?",
+    "whyPooBody": "Porque isto começou como uma piada e a piada ficou. Os montes só são desenhados sobre os módulos de dados. Os três quadrados dos cantos, as linhas de temporização e os marcadores de alinhamento continuam sólidos, porque é medindo-os que um leitor encontra o código, e cantos em forma de emoji produzem um código que nenhum leitor consegue encontrar."
+  },
+  "readback": {
+    "heading": "Verificação",
+    "checking": "A reler a imagem gerada…",
+    "passTitle": "Este código devolve exatamente o que escreveu.",
+    "passBody": "A imagem acima foi descodificada depois de ser desenhada e o resultado coincidiu com o que escreveu, carácter a carácter.",
+    "failTitle": "Este código não foi relido corretamente.",
+    "failBody": "Não o use. Mude para quadrados simples, ou aumente o código, e verifique novamente.",
+    "failFallback": "Mudar para quadrados simples",
+    "decodedLabel": "Valor descodificado",
+    "unsupported": "O seu navegador não consegue descodificar imagens aqui, por isso este código não foi verificado. Leia-o você mesmo antes de o partilhar."
+  },
+  "warning": {
+    "title": "Pare. Verifique isto antes de partilhar.",
+    "addressDetected": "Isto parece um {kind} na {network}.",
+    "hashDetected": "Isto parece o hash de uma transação ou de um bloco.",
+    "ethDetected": "Isto parece o endereço de uma conta Ethereum.",
+    "checksumOk": "A soma de verificação é válida, por isso o endereço que escreveu é internamente coerente.",
+    "checksumBad": "A soma de verificação não bate certo. O endereço que escreveu está corrompido ou mal escrito: não o use.",
+    "checksumUnknown": "Este site não verifica somas de verificação para este tipo de endereço.",
+    "body": "Um código QR não é legível por pessoas. Ninguém consegue perceber, só de olhar, se contém o seu endereço ou o de outra pessoa. Leia este código com o dispositivo a partir do qual pagaria de facto e compare a cadeia completa com o seu endereço, e não apenas os primeiros e os últimos caracteres.",
+    "why": "Porque não bastam os primeiros e os últimos caracteres",
+    "whyBody": "Um atacante consegue gerar um endereço que começa e acaba com os mesmos caracteres que o seu. Verificar apenas as pontas é exatamente a verificação que ele espera que faça.",
+    "learnMore": "Ler como funciona este ataque"
+  },
+  "verify": {
+    "title": "Verifique o que um código QR contém realmente",
+    "description": "Descodifique a imagem de qualquer código QR e veja exatamente o que contém. Compare-a com o endereço ou a ligação que esperava. Corre inteiramente no seu navegador.",
+    "h1": "Verifique um código QR antes de confiar nele",
+    "intro": "Carregue a imagem de um código QR, ou aponte a câmara a um, e esta página dir-lhe-á exatamente o que ele contém. Funciona com códigos criados em qualquer lado, por qualquer pessoa. Como o resto do site, a imagem nunca sai do seu dispositivo.",
+    "dropLabel": "Largue aqui a imagem de um código QR, ou escolha um ficheiro",
+    "chooseFile": "Escolher uma imagem",
+    "useCamera": "Usar a câmara",
+    "stopCamera": "Parar a câmara",
+    "expectedLabel": "O que esperava que contivesse? (opcional)",
+    "expectedPlaceholder": "Cole o endereço ou a ligação que lhe deram",
+    "decodedHeading": "O que este código contém",
+    "noCode": "Não foi encontrado nenhum código QR nessa imagem. Experimente uma fotografia mais nítida ou menos cortada.",
+    "matchTitle": "Corresponde ao que esperava.",
+    "matchBody": "O código descodifica exatamente para o texto que colou.",
+    "mismatchTitle": "Isto não corresponde ao que esperava.",
+    "mismatchBody": "O código contém algo diferente do texto que colou. Não pague. Compare com atenção as duas cadeias abaixo.",
+    "yours": "O que esperava",
+    "theirs": "O que o código contém",
+    "cameraDenied": "O acesso à câmara foi recusado, por isso não é possível ler dessa forma. Pode continuar a carregar uma imagem.",
+    "cameraUnsupported": "Este navegador não dá acesso à câmara a esta página. Pode continuar a carregar uma imagem.",
+    "factKind": "Tipo",
+    "factNetwork": "Rede",
+    "factChecksum": "Soma de verificação",
+    "checksumValid": "Válida",
+    "checksumInvalid": "Não bate certo",
+    "checksumNotChecked": "Não verificada para este tipo",
+    "pasteHint": "Também pode colar uma captura de ecrã diretamente nesta página."
+  },
+  "safety": {
+    "title": "Porque nunca deve confiar num gerador de códigos QR online",
+    "description": "Os resultados de pesquisa para geradores de códigos QR já serviram repetidamente sites que trocam discretamente um endereço de criptomoeda pelo do atacante. Eis como o ataque funciona e como o detetar.",
+    "h1": "Porque nunca deve confiar num gerador de códigos QR online",
+    "lead": "Um código QR não é legível por pessoas. É sobre esse único facto que todo o ataque assenta.",
+    "originHeading": "Como este site começou",
+    "originBody": "Este projeto nasceu de um teste simples. Pesquise por um gerador de códigos QR, pegue nos primeiros resultados, cole um endereço de Bitcoin e compare o que recebe de volta. Vários devolveram um código que não continha o endereço introduzido. Continha o de outra pessoa.",
+    "attackHeading": "Como funciona a substituição",
+    "attackBody": "Cola o seu endereço de pagamento num site. O site devolve uma imagem. Não se consegue ler uma imagem de um código QR, por isso aceita-a, coloca-a numa fatura, num cartaz, numa página de donativos ou num cartão de visita, e deita fora o texto original. Todas as pessoas que a lerem pagam ao atacante em vez de a si. Nada parece errado em momento algum e, quando alguém dá por isso, o dinheiro desapareceu e o código impresso já circula.",
+    "whyWorksHeading": "Porque continua a resultar",
+    "whyWorksPoints": [
+      "Não consegue distinguir dois códigos QR olhando para eles. Nem consegue quem os receber de si.",
+      "O gerador é usado exatamente uma vez, no momento em que o texto original ainda está no ecrã, e nunca mais.",
+      "O código acaba muitas vezes impresso, numa captura de ecrã ou incorporado algures onde o texto original já não existe, e por isso não sobra nada com que comparar.",
+      "Quem verifica costuma comparar apenas os primeiros e os últimos caracteres. Os atacantes geram endereços que coincidem nessas posições."
+    ],
+    "protectHeading": "Como se proteger",
+    "protectPoints": [
+      "Leia você mesmo cada código QR antes de o partilhar, com o dispositivo a partir do qual pagaria de facto.",
+      "Compare a cadeia inteira, carácter a carácter, e não apenas as pontas.",
+      "Prefira um gerador que funcione com a rede desligada. Se precisa de um servidor, o servidor pode alterar os seus dados.",
+      "Verifique a soma de verificação do endereço. Os endereços de Bitcoin têm uma, e um endereço corrompido não passa.",
+      "Volte a gerar o código você mesmo, em vez de reutilizar um que lhe tenham enviado."
+    ],
+    "thisSiteHeading": "O que este site faz de diferente",
+    "thisSitePoints": [
+      "O código QR é construído no seu navegador. Nada do que escreve é transmitido, porque o site não tem servidor para onde transmitir.",
+      "Depois de desenhar o código, a página descodifica a imagem que acabou de produzir e mostra-lhe o que lê. Se não corresponder ao que escreveu, di-lo.",
+      "A política de segurança de conteúdo não permite qualquer origem externa, por isso a página não consegue carregar nem contactar nada, nem sequer por acidente.",
+      "É tudo ficheiros estáticos e código aberto. Pode ler cada linha, guardar a página e usá-la sem ligação para sempre."
+    ],
+    "trustHeading": "Também não acredite neste site",
+    "trustBody": "Tudo o que está acima é uma razão para desconfiar de geradores de códigos QR, e isto é um gerador de códigos QR. A releitura na página do gerador é uma conveniência, não uma prova: é o mesmo código que desenhou a imagem. A única verificação que conta mesmo é a que faz você, no seu próprio dispositivo, contra o seu próprio endereço. Faça essa.",
+    "faqHeading": "Perguntas frequentes",
+    "faq": [
+      {
+        "q": "Um gerador de códigos QR pode alterar o meu endereço de Bitcoin?",
+        "a": "Pode. Se o código é gerado no servidor de outra pessoa, é esse servidor que decide o que entra na imagem. Pode devolver um código com o endereço que quiser, e a imagem parecerá perfeitamente normal."
+      },
+      {
+        "q": "Como verifico que um código QR contém o endereço certo?",
+        "a": "Leia-o com o dispositivo a partir do qual pagaria e compare o texto descodificado com o seu endereço por inteiro. Não compare apenas os primeiros e os últimos caracteres, porque um atacante consegue fazê-los coincidir."
+      },
+      {
+        "q": "É seguro usar um gerador de códigos QR online para um endereço de carteira?",
+        "a": "Só se o gerador correr inteiramente no seu navegador e se verificar o resultado lendo-o. Tudo o que envie o seu endereço para um servidor está a pedir-lhe que confie o seu dinheiro a esse servidor."
+      },
+      {
+        "q": "Este site envia os meus dados para algum lado?",
+        "a": "Não. A página é estática e a codificação corre no seu navegador. Pode desligar-se da internet, recarregar, e continuará a funcionar."
+      }
+    ]
+  },
+  "footer": {
+    "builtBy": "Criado por {author}.",
+    "sourceOn": "Código no GitHub",
+    "licence": "Licença MIT."
+  }
+}
