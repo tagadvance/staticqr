@@ -32,6 +32,27 @@ const OG_LOCALES = {
 
 const PAGES = ['index', 'verify', 'safety'];
 
+/**
+ * Correct jsQR's alignment-pattern table for version 23.
+ *
+ * It ships 74 where ISO/IEC 18004 says 78, so it cannot read any version 23
+ * symbol. Left alone, the readback tells users that a perfectly good code is
+ * broken and the plain-squares fallback fails too — a payload of around a
+ * thousand bytes at error correction level L lands there. Patched on the way
+ * out rather than vendored, so the dependency stays a normal pinned install,
+ * and exported so the tests exercise what production actually serves.
+ */
+export function correctDecoder(source) {
+	const corrected = source.replace(
+		'alignmentPatternCenters: [6, 30, 54, 74, 102]',
+		'alignmentPatternCenters: [6, 30, 54, 78, 102]',
+	);
+	if (corrected === source) {
+		throw new Error('the jsQR version 23 fix did not apply; check whether it is fixed upstream');
+	}
+	return corrected;
+}
+
 const escapeHtml = (value) =>
 	String(value).replace(
 		/[&<>"']/g,
@@ -383,6 +404,9 @@ async function main() {
 	]) {
 		await copyFile(join(root, from), join(dist, 'assets', to));
 	}
+
+	const decoderPath = join(dist, 'assets', 'jsQR.js');
+	await writeFile(decoderPath, correctDecoder(await readFile(decoderPath, 'utf8')));
 
 	// The poo outline is derived from Noto Emoji, so the Open Font Licence has
 	// to travel with the site that serves it, not just sit in the repository.

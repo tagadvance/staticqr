@@ -5,15 +5,20 @@
 import { GLYPH_PATH, glyphTransform } from './glyph.js';
 
 export const DEFAULT_MODULE_SIZE = 12;
-export const DEFAULT_BORDER = 4;
+/**
+ * Quiet zone in modules. The specification asks for at least 4. A glyph
+ * slightly overhangs its cell, which measured 3.8 modules of actual clearance
+ * at a border of 4, so this carries one extra module of margin.
+ */
+export const DEFAULT_BORDER = 5;
 export const DEFAULT_DARK = '#6b4423';
 export const DEFAULT_LIGHT = '#ffffff';
 
 /**
  * How much of its cell each glyph covers. A little over 1 lets neighbouring
- * piles touch without smearing them into an unrecognisable blob. Measured
- * against a decoder, anything from 1.0 to 2.0 scans, so this is chosen for
- * looks rather than for legibility.
+ * piles touch without smearing them into an unrecognisable blob. Chosen for
+ * looks rather than for legibility. Measured against a decoder the band that
+ * still scans is about 0.45 to 1.85; 2.0 fails more often than not.
  */
 export const DEFAULT_COVERAGE = 1.15;
 
@@ -70,11 +75,11 @@ export function renderSvg(result, options = {}) {
 		`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${extent} ${extent}"`,
 		` width="${extent}" height="${extent}" role="img" aria-label="${escapeXml(title)}">`,
 		`<title>${escapeXml(title)}</title>`,
-		`<rect width="100%" height="100%" fill="${light}"/>`,
+		`<rect width="100%" height="100%" fill="${escapeXml(light)}"/>`,
 		uses.length === 0
 			? ''
 			: `<defs><g id="m" transform="matrix(${transform})"><path d="${GLYPH_PATH}"/></g></defs>`,
-		`<g fill="${dark}">${rects.join('')}${uses.join('')}</g>`,
+		`<g fill="${escapeXml(dark)}">${rects.join('')}${uses.join('')}</g>`,
 		'</svg>',
 	].join('');
 }
@@ -93,12 +98,16 @@ export function renderCanvas(canvas, result, options = {}) {
 		devicePixelRatio = 1,
 	} = options;
 
-	const extent = (result.size + border * 2) * moduleSize;
-	canvas.width = Math.round(extent * devicePixelRatio);
-	canvas.height = Math.round(extent * devicePixelRatio);
+	// Snapped to whole device pixels. Scaling by a fractional ratio puts module
+	// edges between pixels, and the anti-aliasing that follows breaks a
+	// decoder's grid sampling for about one code in three.
+	const module = Math.max(1, Math.round(moduleSize * devicePixelRatio));
+	const extent = (result.size + border * 2) * module;
+	canvas.width = extent;
+	canvas.height = extent;
 
 	const context = canvas.getContext('2d', { willReadFrequently: true });
-	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+	context.setTransform(1, 0, 0, 1, 0, 0);
 	context.fillStyle = light;
 	context.fillRect(0, 0, extent, extent);
 
@@ -110,12 +119,12 @@ export function renderCanvas(canvas, result, options = {}) {
 			if (!result.modules[row][col]) {
 				continue;
 			}
-			const x = (col + border) * moduleSize;
-			const y = (row + border) * moduleSize;
+			const x = (col + border) * module;
+			const y = (row + border) * module;
 			if (result.isFunction[row][col]) {
-				context.fillRect(x, y, moduleSize, moduleSize);
+				context.fillRect(x, y, module, module);
 			} else {
-				const [a, b, c, d, e, f] = glyphTransform(x, y, moduleSize, coverage);
+				const [a, b, c, d, e, f] = glyphTransform(x, y, module, coverage);
 				combined.addPath(glyph, new DOMMatrix([a, b, c, d, e, f]));
 			}
 		}
@@ -140,24 +149,20 @@ export function renderCanvasPlain(canvas, result, options = {}) {
 		devicePixelRatio = 1,
 	} = options;
 
-	const extent = (result.size + border * 2) * moduleSize;
-	canvas.width = Math.round(extent * devicePixelRatio);
-	canvas.height = Math.round(extent * devicePixelRatio);
+	const module = Math.max(1, Math.round(moduleSize * devicePixelRatio));
+	const extent = (result.size + border * 2) * module;
+	canvas.width = extent;
+	canvas.height = extent;
 
 	const context = canvas.getContext('2d', { willReadFrequently: true });
-	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+	context.setTransform(1, 0, 0, 1, 0, 0);
 	context.fillStyle = light;
 	context.fillRect(0, 0, extent, extent);
 	context.fillStyle = dark;
 	for (let row = 0; row < result.size; row++) {
 		for (let col = 0; col < result.size; col++) {
 			if (result.modules[row][col]) {
-				context.fillRect(
-					(col + border) * moduleSize,
-					(row + border) * moduleSize,
-					moduleSize,
-					moduleSize,
-				);
+				context.fillRect((col + border) * module, (row + border) * module, module, module);
 			}
 		}
 	}
