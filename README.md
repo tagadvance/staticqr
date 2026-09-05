@@ -66,14 +66,21 @@ npm install
 npx playwright install chromium   # for the browser tests
 npm run build                     # writes dist/
 npm run serve                     # http://localhost:8080
+npm run lint
 npm test
 ```
+
+Formatting is Prettier with tabs, following `~/git/.editorconfig`. ESLint
+carries only rules that catch bugs or dead code; anything stylistic is left to
+Prettier via `eslint-config-prettier`.
 
 | Command | Does |
 | --- | --- |
 | `npm run build` | Build the static site into `dist/` |
 | `npm run serve` | Serve `dist/` locally |
 | `npm test` | Unit, translation and browser tests |
+| `npm run lint` | ESLint plus a Prettier formatting check |
+| `npm run format` | Rewrite with Prettier, then apply ESLint's safe fixes |
 | `npm run images` | Regenerate `site/og.png` and the README example |
 | `npm run golden` | Regenerate the encoder fixtures — read `tools/golden.mjs` first |
 

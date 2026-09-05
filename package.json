@@ -14,11 +14,18 @@
     "build": "node tools/build.mjs",
     "images": "node tools/images.mjs",
     "golden": "node tools/golden.mjs",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write . && eslint --fix .",
     "test": "node --test test/",
     "serve": "node tools/serve.mjs"
   },
   "devDependencies": {
-    "playwright": "^1.63.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.12.0",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.6"
   },
   "engines": {
     "node": ">=20"

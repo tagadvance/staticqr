@@ -32,6 +32,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Lint and check formatting
+        run: npm run lint
+
       # The suite renders codes in a real browser and decodes them, which is
       # the only way to catch a matrix that is correct but drawn unreadably.
       - name: Cache Playwright browsers
