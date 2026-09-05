@@ -381,6 +381,14 @@ async function main() {
 		await copyFile(join(root, from), join(dist, 'assets', to));
 	}
 
+	// The poo outline is derived from Noto Emoji, so the Open Font Licence has
+	// to travel with the site that serves it, not just sit in the repository.
+	await mkdir(join(dist, 'licenses'), { recursive: true });
+	await copyFile(
+		join(root, 'licenses/NotoEmoji-OFL.txt'),
+		join(dist, 'licenses/NotoEmoji-OFL.txt'),
+	);
+
 	// The bare specifiers in src/ resolve from the site root once served.
 	for (const name of ['render.js', 'generate.js', 'check.js']) {
 		const path = join(dist, 'assets', name);

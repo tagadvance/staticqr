@@ -1,8 +1,11 @@
 /**
  * The pile-of-poo glyph as a plain vector outline.
  *
- * Taken from Noto Emoji (SIL Open Font License, see licenses/), converted to
- * a path once at build time. Drawing it as a path rather than as text means
+ * Taken from Noto Emoji, converted to a path once at build time and used
+ * under the SIL Open Font License, served alongside this file at
+ * /licenses/NotoEmoji-OFL.txt.
+ *
+ * Drawing it as a path rather than as text means
  * the code renders identically whether or not the visitor's device has an
  * emoji font installed. A missing font would otherwise leave blank or
  * tofu-boxed modules, producing a QR code that silently fails to scan.
