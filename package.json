@@ -18,10 +18,12 @@
     "serve": "node tools/serve.mjs"
   },
   "devDependencies": {
-    "jsqr": "^1.4.0",
     "playwright": "^1.63.0"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0"
   }
 }
