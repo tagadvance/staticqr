@@ -109,13 +109,24 @@
       "Le code finit souvent imprimé, en capture d'écran ou intégré quelque part où le texte d'origine n'existe plus, si bien qu'il ne reste rien à quoi le comparer.",
       "Ceux qui vérifient ne comparent en général que les premiers et les derniers caractères. Les attaquants génèrent des adresses qui coïncident à ces endroits."
     ],
+    "quishingHeading": "L'autre sens : les codes que vous n'avez pas créés",
+    "quishingBody": "Ce site parle surtout des codes que vous créez. L'essentiel de la fraude aux QR codes va dans l'autre sens. Quelqu'un colle un autocollant par-dessus le code d'un horodateur ou d'un terminal de paiement, ou envoie une facture en PDF avec un code à la place d'un lien. Le code mène à une page qui a l'air correcte et vous demande de vous connecter ou de payer. Le secteur appelle cela le quishing, et cela fonctionne pour la même raison que la substitution : on ne peut pas voir où mène un QR code avant d'y être déjà allé.",
+    "quishingPoints": [
+      "Des autocollants posés sur le vrai code des horodateurs, des bornes de recharge et des terminaux de paiement.",
+      "Des codes glissés dans des e-mails et des pièces jointes PDF, qui passent les filtres qu'un simple lien aurait déclenchés.",
+      "De faux menus de restaurant, de faux avis de livraison et de faux rappels de facture.",
+      "Des affiches et des tracts dans l'espace public, où personne ne distingue un autocollant ajouté de l'impression d'origine."
+    ],
+    "quishingCheck": "Décodez un code et lisez sa destination avant de vous y rendre :",
     "protectHeading": "Comment vous protéger",
     "protectPoints": [
       "Scannez vous-même chaque QR code avant de le partager, avec l'appareil depuis lequel vous paieriez réellement.",
       "Comparez la chaîne entière, caractère par caractère, pas seulement les extrémités.",
       "Préférez un générateur qui fonctionne réseau coupé. S'il lui faut un serveur, ce serveur peut modifier vos données.",
       "Vérifiez la somme de contrôle de l'adresse. Les adresses Bitcoin en portent une, et une adresse corrompue échoue au test.",
-      "Régénérez le code vous-même plutôt que de réutiliser celui qu'on vous a envoyé."
+      "Régénérez le code vous-même plutôt que de réutiliser celui qu'on vous a envoyé.",
+      "Avant de scanner un code dans l'espace public, vérifiez qu'un autocollant n'a pas été collé sur l'original. La manipulation physique en est la forme la plus courante.",
+      "Lisez le domaine entier de tout lien vers lequel mène un code, et ne vous connectez jamais et ne payez jamais depuis une page atteinte en scannant quelque chose."
     ],
     "thisSiteHeading": "Ce que ce site fait différemment",
     "thisSitePoints": [
@@ -143,6 +154,14 @@
       {
         "q": "Ce site envoie-t-il mes données quelque part ?",
         "a": "Non. La page est statique et l'encodage s'exécute dans votre navigateur. Vous pouvez vous déconnecter d'internet, recharger, et cela continuera de fonctionner."
+      },
+      {
+        "q": "Qu'est-ce que le quishing ?",
+        "a": "Du hameçonnage qui utilise un QR code au lieu d'un lien. Le code masque la destination, ce qui lui permet d'échapper à la fois aux filtres de messagerie et au réflexe de survoler un lien avant de cliquer. Les autocollants posés sur de vrais codes dans l'espace public en sont la forme la plus répandue."
+      },
+      {
+        "q": "Comment savoir où mène un QR code avant de le scanner ?",
+        "a": "Décodez l'image au lieu de l'ouvrir. Le vérificateur de ce site vous montre la destination sans s'y rendre, et fonctionne sur une photo ou une capture d'écran de n'importe quel code."
       }
     ]
   },

@@ -109,13 +109,24 @@
       "O código acaba muitas vezes impresso, numa captura de ecrã ou incorporado algures onde o texto original já não existe, e por isso não sobra nada com que comparar.",
       "Quem verifica costuma comparar apenas os primeiros e os últimos caracteres. Os atacantes geram endereços que coincidem nessas posições."
     ],
+    "quishingHeading": "O sentido inverso: códigos que não foi você a criar",
+    "quishingBody": "Este site trata sobretudo dos códigos que você cria. A maior parte da fraude com códigos QR vai no sentido inverso. Alguém cola um autocolante sobre o código de um parquímetro ou de um terminal de pagamento, ou envia uma fatura em PDF com um código em vez de uma ligação. O código leva a algo que parece o correto e pede-lhe para iniciar sessão ou pagar. No setor chama-se a isto quishing, e funciona pela mesma razão que a substituição: não consegue ver para onde vai um código QR antes de já lá ter ido.",
+    "quishingPoints": [
+      "Autocolantes colados sobre o código verdadeiro em parquímetros, carregadores e terminais de pagamento.",
+      "Códigos dentro de emails e de anexos PDF, que passam por filtros que teriam travado uma ligação normal.",
+      "Menus falsos, avisos de entrega de encomendas e lembretes de faturas de serviços.",
+      "Cartazes e folhetos na via pública, onde ninguém distingue um autocolante acrescentado da impressão original."
+    ],
+    "quishingCheck": "Descodifique um código e leia o destino antes de o visitar:",
     "protectHeading": "Como se proteger",
     "protectPoints": [
       "Leia você mesmo cada código QR antes de o partilhar, com o dispositivo a partir do qual pagaria de facto.",
       "Compare a cadeia inteira, carácter a carácter, e não apenas as pontas.",
       "Prefira um gerador que funcione com a rede desligada. Se precisa de um servidor, o servidor pode alterar os seus dados.",
       "Verifique a soma de verificação do endereço. Os endereços de Bitcoin têm uma, e um endereço corrompido não passa.",
-      "Volte a gerar o código você mesmo, em vez de reutilizar um que lhe tenham enviado."
+      "Volte a gerar o código você mesmo, em vez de reutilizar um que lhe tenham enviado.",
+      "Antes de ler um código na via pública, verifique se foi colado um autocolante por cima do original. A manipulação física é a versão mais comum disto.",
+      "Leia o domínio completo de qualquer ligação a que um código leve, e nunca inicie sessão nem pague a partir de uma página a que chegou por leitura de um código."
     ],
     "thisSiteHeading": "O que este site faz de diferente",
     "thisSitePoints": [
@@ -143,6 +154,14 @@
       {
         "q": "Este site envia os meus dados para algum lado?",
         "a": "Não. A página é estática e a codificação corre no seu navegador. Pode desligar-se da internet, recarregar, e continuará a funcionar."
+      },
+      {
+        "q": "O que é quishing?",
+        "a": "Phishing que usa um código QR em vez de uma ligação. O código esconde o destino, por isso escapa tanto aos filtros de email como ao hábito de passar o rato sobre uma ligação antes de clicar. Autocolantes colados sobre códigos verdadeiros na via pública são a forma mais comum."
+      },
+      {
+        "q": "Como sei para onde vai um código QR antes de o ler?",
+        "a": "Descodifique a imagem em vez de a abrir. O verificador deste site mostra-lhe o destino sem o visitar, e funciona com uma fotografia ou uma captura de ecrã de qualquer código."
       }
     ]
   },

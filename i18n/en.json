@@ -109,13 +109,24 @@
       "The code often ends up printed, screenshotted or embedded somewhere the original text no longer exists, so there is nothing left to compare against.",
       "People who do check tend to compare only the first and last few characters. Attackers generate addresses that match those."
     ],
+    "quishingHeading": "The other direction: codes you did not make",
+    "quishingBody": "This site is mostly about codes you create. Most QR fraud runs the other way. Someone puts a sticker over the code on a parking meter or a payment terminal, or sends an invoice as a PDF with a code in place of a link. The code leads somewhere that looks right and asks you to sign in or pay. The industry calls this quishing, and it works for the same reason the substitution attack does: you cannot see where a QR code goes until you have already gone there.",
+    "quishingPoints": [
+      "Stickers placed over the real code on parking meters, chargers and payment terminals.",
+      "Codes inside emails and PDF attachments, which get past filters that would have stopped a plain link.",
+      "Fake restaurant menus, parcel delivery notices and utility bill reminders.",
+      "Posters and flyers in public, where nobody can tell an added sticker from the original print."
+    ],
+    "quishingCheck": "Decode a code and read its destination before you visit it:",
     "protectHeading": "How to protect yourself",
     "protectPoints": [
       "Scan every QR code yourself before you share it, using the device you would actually pay from.",
       "Compare the entire string, character by character, not just the ends.",
       "Prefer a generator that works with the network turned off. If it needs a server, the server can change your data.",
       "Check the address checksum. Bitcoin addresses carry one, and a corrupted address will fail it.",
-      "Regenerate the code yourself rather than reusing one somebody sent you."
+      "Regenerate the code yourself rather than reusing one somebody sent you.",
+      "Before scanning a code in public, check whether a sticker has been placed over the original. Physical tampering is the most common version of this.",
+      "Read the whole domain of any link a code leads to, and never sign in or pay from a page you reached by scanning something."
     ],
     "thisSiteHeading": "What this site does differently",
     "thisSitePoints": [
@@ -143,6 +154,14 @@
       {
         "q": "Does this site send my data anywhere?",
         "a": "No. The page is static and the encoding runs in your browser. You can disconnect from the internet, reload, and it will keep working."
+      },
+      {
+        "q": "What is quishing?",
+        "a": "Phishing that uses a QR code instead of a link. The code hides the destination, so it gets past both email filters and the habit of hovering over a link before clicking it. Stickers placed over real codes in public are the most common form."
+      },
+      {
+        "q": "How can I tell where a QR code goes before scanning it?",
+        "a": "Decode the image rather than opening it. The checker on this site shows you the destination without visiting it, and works on a photo or a screenshot of any code."
       }
     ]
   },

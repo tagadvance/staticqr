@@ -221,6 +221,11 @@ function safetyBody(lang, strings) {
 <h2>${escapeHtml(safety.whyWorksHeading)}</h2>
 ${list(safety.whyWorksPoints)}
 
+<h2>${escapeHtml(safety.quishingHeading)}</h2>
+<p>${escapeHtml(safety.quishingBody)}</p>
+${list(safety.quishingPoints)}
+<p>${escapeHtml(safety.quishingCheck)} <a href="${pagePath(lang, 'verify')}">${escapeHtml(strings.nav.verify)}</a></p>
+
 <h2>${escapeHtml(safety.protectHeading)}</h2>
 ${list(safety.protectPoints)}
 
