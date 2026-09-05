@@ -158,13 +158,13 @@ function indexBody(lang, strings) {
 </div>
 </form>
 
-<div id="warning" class="notice danger" role="alert" hidden></div>
-
 <h2>${escapeHtml(index.resultHeading)}</h2>
 <div class="output" id="output"><p id="placeholder">${escapeHtml(index.emptyState)}</p></div>
 <p class="meta" id="meta"></p>
 
 <div id="readback" class="notice" role="status" aria-live="polite" hidden></div>
+
+<div id="warning" class="notice danger" role="alert" hidden></div>
 
 <div class="actions">
 <button type="button" id="download-png" disabled>${escapeHtml(index.downloadPng)}</button>
