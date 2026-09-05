@@ -3,28 +3,26 @@
   "name": "Français",
   "dir": "ltr",
   "site": {
-    "name": "Static QR",
-    "tagline": "Un générateur de QR codes qui n'envoie jamais vos données nulle part."
+    "name": "Static QR"
   },
   "nav": {
     "generate": "Générer",
     "verify": "Vérifier un code",
     "safety": "Pourquoi c'est important",
-    "language": "Langue"
+    "language": "Langue",
+    "primary": "Principale"
   },
   "common": {
     "offlineProof": "Coupez votre connexion internet et rechargez la page. Elle fonctionne toujours, parce qu'il n'y a rien avec quoi communiquer.",
-    "sourceLink": "Lire le code source",
     "skipToContent": "Aller au contenu"
   },
   "index": {
     "title": "Générateur de QR code fonctionnant entièrement dans votre navigateur",
     "description": "Générez un QR code sans rien envoyer. Tout se passe dans votre navigateur, le résultat est vérifié en le relisant, et rien n'est jamais transmis à un serveur.",
     "h1": "Créez un QR code sans faire confiance à personne",
-    "intro": "Saisissez ce que vous voulez ci-dessous et cette page l'encodera en QR code. L'encodage a lieu dans votre navigateur, avec du code que vous pouvez lire. Rien de ce que vous saisissez n'est transmis, journalisé ni vu par un serveur, parce qu'il n'y a pas de serveur.",
+    "intro": "Rien de ce que vous saisissez n'est transmis, journalisé ni vu par un serveur, parce qu'il n'y a pas de serveur.",
     "inputLabel": "Texte, URL ou adresse à encoder",
     "inputPlaceholder": "https://exemple.com",
-    "optionsHeading": "Options",
     "errorCorrectionLabel": "Correction d'erreurs",
     "errorCorrectionHelp": "Les niveaux élevés résistent à plus de dégâts, mais donnent un code plus dense.",
     "moduleSizeLabel": "Taille",

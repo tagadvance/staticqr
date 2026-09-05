@@ -3,28 +3,26 @@
   "name": "English",
   "dir": "ltr",
   "site": {
-    "name": "Static QR",
-    "tagline": "A QR code generator that never sends your data anywhere."
+    "name": "Static QR"
   },
   "nav": {
     "generate": "Generate",
     "verify": "Check a code",
     "safety": "Why this matters",
-    "language": "Language"
+    "language": "Language",
+    "primary": "Main"
   },
   "common": {
     "offlineProof": "Turn off your internet connection and reload. This page still works, because there is nothing to talk to.",
-    "sourceLink": "Read the source",
     "skipToContent": "Skip to content"
   },
   "index": {
     "title": "QR Code Generator That Runs Entirely In Your Browser",
     "description": "Generate a QR code without uploading anything. Everything happens in your browser, the result is checked by scanning it back, and nothing is ever sent to a server.",
     "h1": "Make a QR code without trusting anyone",
-    "intro": "Type anything below and this page will encode it into a QR code. The encoding happens in your browser using code you can read. Nothing you type is uploaded, logged, or seen by a server, because there is no server.",
+    "intro": "Nothing you type is uploaded, logged, or seen by a server, because there is no server.",
     "inputLabel": "Text, URL or address to encode",
     "inputPlaceholder": "https://example.com",
-    "optionsHeading": "Options",
     "errorCorrectionLabel": "Error correction",
     "errorCorrectionHelp": "Higher levels survive more damage but make a denser code.",
     "moduleSizeLabel": "Size",

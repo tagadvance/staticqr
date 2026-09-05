@@ -3,28 +3,26 @@
   "name": "Português",
   "dir": "ltr",
   "site": {
-    "name": "Static QR",
-    "tagline": "Um gerador de códigos QR que nunca envia os seus dados para lado nenhum."
+    "name": "Static QR"
   },
   "nav": {
     "generate": "Gerar",
     "verify": "Verificar um código",
     "safety": "Porque isto importa",
-    "language": "Idioma"
+    "language": "Idioma",
+    "primary": "Principal"
   },
   "common": {
     "offlineProof": "Desligue a ligação à internet e recarregue a página. Continua a funcionar, porque não há nada com que comunicar.",
-    "sourceLink": "Ler o código-fonte",
     "skipToContent": "Saltar para o conteúdo"
   },
   "index": {
     "title": "Gerador de códigos QR que corre inteiramente no seu navegador",
     "description": "Gere um código QR sem enviar nada. Tudo acontece no seu navegador, o resultado é verificado voltando a lê-lo e nada é alguma vez enviado para um servidor.",
     "h1": "Crie um código QR sem confiar em ninguém",
-    "intro": "Escreva o que quiser abaixo e esta página codifica-o num código QR. A codificação acontece no seu navegador, com código que pode ler. Nada do que escrever é enviado, registado ou visto por um servidor, porque não existe servidor.",
+    "intro": "Nada do que escrever é enviado, registado ou visto por um servidor, porque não existe servidor.",
     "inputLabel": "Texto, URL ou endereço a codificar",
     "inputPlaceholder": "https://exemplo.com",
-    "optionsHeading": "Opções",
     "errorCorrectionLabel": "Correção de erros",
     "errorCorrectionHelp": "Níveis mais altos resistem a mais danos, mas tornam o código mais denso.",
     "moduleSizeLabel": "Tamanho",
