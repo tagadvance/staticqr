@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
 
+import { REPOSITORY } from './build.mjs';
+
 const read = (path) => readFile(new URL(path, import.meta.url), 'utf8');
 
 const sources = {
@@ -18,7 +20,9 @@ const sources = {
 	render: await read('../src/render.js'),
 };
 
-const REPO = 'https://github.com/tagadvance/staticqr';
+// Imported rather than repeated: this URL is baked inside the generated QR
+// codes, and it went stale twice across repository renames.
+const REPO = REPOSITORY;
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
