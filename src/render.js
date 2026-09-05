@@ -28,55 +28,55 @@ export const DEFAULT_COVERAGE = 1.15;
  */
 
 function escapeXml(text) {
-  return text.replace(/[<>&"]/g, (character) => {
-    return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[character];
-  });
+	return text.replace(/[<>&"]/g, (character) => {
+		return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[character];
+	});
 }
 
 export function renderSvg(result, options = {}) {
-  const {
-    moduleSize = DEFAULT_MODULE_SIZE,
-    border = DEFAULT_BORDER,
-    dark = DEFAULT_DARK,
-    light = DEFAULT_LIGHT,
-    coverage = DEFAULT_COVERAGE,
-    title = 'QR code',
-    plain = false,
-  } = options;
+	const {
+		moduleSize = DEFAULT_MODULE_SIZE,
+		border = DEFAULT_BORDER,
+		dark = DEFAULT_DARK,
+		light = DEFAULT_LIGHT,
+		coverage = DEFAULT_COVERAGE,
+		title = 'QR code',
+		plain = false,
+	} = options;
 
-  const extent = (result.size + border * 2) * moduleSize;
-  const transform = glyphTransform(0, 0, moduleSize, coverage)
-    .map((value) => Number(value.toFixed(6)))
-    .join(' ');
+	const extent = (result.size + border * 2) * moduleSize;
+	const transform = glyphTransform(0, 0, moduleSize, coverage)
+		.map((value) => Number(value.toFixed(6)))
+		.join(' ');
 
-  const uses = [];
-  const rects = [];
-  for (let row = 0; row < result.size; row++) {
-    for (let col = 0; col < result.size; col++) {
-      if (!result.modules[row][col]) {
-        continue;
-      }
-      const x = (col + border) * moduleSize;
-      const y = (row + border) * moduleSize;
-      if (plain || result.isFunction[row][col]) {
-        rects.push(`<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}"/>`);
-      } else {
-        uses.push(`<use href="#m" x="${x}" y="${y}"/>`);
-      }
-    }
-  }
+	const uses = [];
+	const rects = [];
+	for (let row = 0; row < result.size; row++) {
+		for (let col = 0; col < result.size; col++) {
+			if (!result.modules[row][col]) {
+				continue;
+			}
+			const x = (col + border) * moduleSize;
+			const y = (row + border) * moduleSize;
+			if (plain || result.isFunction[row][col]) {
+				rects.push(`<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}"/>`);
+			} else {
+				uses.push(`<use href="#m" x="${x}" y="${y}"/>`);
+			}
+		}
+	}
 
-  return [
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${extent} ${extent}"`,
-    ` width="${extent}" height="${extent}" role="img" aria-label="${escapeXml(title)}">`,
-    `<title>${escapeXml(title)}</title>`,
-    `<rect width="100%" height="100%" fill="${light}"/>`,
-    uses.length === 0
-      ? ''
-      : `<defs><g id="m" transform="matrix(${transform})"><path d="${GLYPH_PATH}"/></g></defs>`,
-    `<g fill="${dark}">${rects.join('')}${uses.join('')}</g>`,
-    '</svg>',
-  ].join('');
+	return [
+		`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${extent} ${extent}"`,
+		` width="${extent}" height="${extent}" role="img" aria-label="${escapeXml(title)}">`,
+		`<title>${escapeXml(title)}</title>`,
+		`<rect width="100%" height="100%" fill="${light}"/>`,
+		uses.length === 0
+			? ''
+			: `<defs><g id="m" transform="matrix(${transform})"><path d="${GLYPH_PATH}"/></g></defs>`,
+		`<g fill="${dark}">${rects.join('')}${uses.join('')}</g>`,
+		'</svg>',
+	].join('');
 }
 
 /**
@@ -84,45 +84,45 @@ export function renderSvg(result, options = {}) {
  * path so the whole code is one fill call rather than several thousand.
  */
 export function renderCanvas(canvas, result, options = {}) {
-  const {
-    moduleSize = DEFAULT_MODULE_SIZE,
-    border = DEFAULT_BORDER,
-    dark = DEFAULT_DARK,
-    light = DEFAULT_LIGHT,
-    coverage = DEFAULT_COVERAGE,
-    devicePixelRatio = 1,
-  } = options;
+	const {
+		moduleSize = DEFAULT_MODULE_SIZE,
+		border = DEFAULT_BORDER,
+		dark = DEFAULT_DARK,
+		light = DEFAULT_LIGHT,
+		coverage = DEFAULT_COVERAGE,
+		devicePixelRatio = 1,
+	} = options;
 
-  const extent = (result.size + border * 2) * moduleSize;
-  canvas.width = Math.round(extent * devicePixelRatio);
-  canvas.height = Math.round(extent * devicePixelRatio);
+	const extent = (result.size + border * 2) * moduleSize;
+	canvas.width = Math.round(extent * devicePixelRatio);
+	canvas.height = Math.round(extent * devicePixelRatio);
 
-  const context = canvas.getContext('2d');
-  context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-  context.fillStyle = light;
-  context.fillRect(0, 0, extent, extent);
+	const context = canvas.getContext('2d');
+	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+	context.fillStyle = light;
+	context.fillRect(0, 0, extent, extent);
 
-  const glyph = new Path2D(GLYPH_PATH);
-  const combined = new Path2D();
-  context.fillStyle = dark;
-  for (let row = 0; row < result.size; row++) {
-    for (let col = 0; col < result.size; col++) {
-      if (!result.modules[row][col]) {
-        continue;
-      }
-      const x = (col + border) * moduleSize;
-      const y = (row + border) * moduleSize;
-      if (result.isFunction[row][col]) {
-        context.fillRect(x, y, moduleSize, moduleSize);
-      } else {
-        const [a, b, c, d, e, f] = glyphTransform(x, y, moduleSize, coverage);
-        combined.addPath(glyph, new DOMMatrix([a, b, c, d, e, f]));
-      }
-    }
-  }
-  context.fill(combined);
+	const glyph = new Path2D(GLYPH_PATH);
+	const combined = new Path2D();
+	context.fillStyle = dark;
+	for (let row = 0; row < result.size; row++) {
+		for (let col = 0; col < result.size; col++) {
+			if (!result.modules[row][col]) {
+				continue;
+			}
+			const x = (col + border) * moduleSize;
+			const y = (row + border) * moduleSize;
+			if (result.isFunction[row][col]) {
+				context.fillRect(x, y, moduleSize, moduleSize);
+			} else {
+				const [a, b, c, d, e, f] = glyphTransform(x, y, moduleSize, coverage);
+				combined.addPath(glyph, new DOMMatrix([a, b, c, d, e, f]));
+			}
+		}
+	}
+	context.fill(combined);
 
-  return { extent };
+	return { extent };
 }
 
 /**
@@ -132,35 +132,35 @@ export function renderCanvas(canvas, result, options = {}) {
  * poo-drawn code turns out not to scan.
  */
 export function renderCanvasPlain(canvas, result, options = {}) {
-  const {
-    moduleSize = DEFAULT_MODULE_SIZE,
-    border = DEFAULT_BORDER,
-    dark = '#000000',
-    light = DEFAULT_LIGHT,
-    devicePixelRatio = 1,
-  } = options;
+	const {
+		moduleSize = DEFAULT_MODULE_SIZE,
+		border = DEFAULT_BORDER,
+		dark = '#000000',
+		light = DEFAULT_LIGHT,
+		devicePixelRatio = 1,
+	} = options;
 
-  const extent = (result.size + border * 2) * moduleSize;
-  canvas.width = Math.round(extent * devicePixelRatio);
-  canvas.height = Math.round(extent * devicePixelRatio);
+	const extent = (result.size + border * 2) * moduleSize;
+	canvas.width = Math.round(extent * devicePixelRatio);
+	canvas.height = Math.round(extent * devicePixelRatio);
 
-  const context = canvas.getContext('2d');
-  context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-  context.fillStyle = light;
-  context.fillRect(0, 0, extent, extent);
-  context.fillStyle = dark;
-  for (let row = 0; row < result.size; row++) {
-    for (let col = 0; col < result.size; col++) {
-      if (result.modules[row][col]) {
-        context.fillRect(
-          (col + border) * moduleSize,
-          (row + border) * moduleSize,
-          moduleSize,
-          moduleSize,
-        );
-      }
-    }
-  }
+	const context = canvas.getContext('2d');
+	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+	context.fillStyle = light;
+	context.fillRect(0, 0, extent, extent);
+	context.fillStyle = dark;
+	for (let row = 0; row < result.size; row++) {
+		for (let col = 0; col < result.size; col++) {
+			if (result.modules[row][col]) {
+				context.fillRect(
+					(col + border) * moduleSize,
+					(row + border) * moduleSize,
+					moduleSize,
+					moduleSize,
+				);
+			}
+		}
+	}
 
-  return { extent };
+	return { extent };
 }

@@ -8,7 +8,7 @@
 A QR code generator that runs entirely in your browser and draws the data
 modules as piles of poo. Live at **[staticqr.com](https://staticqr.com)**.
 
-![A QR code drawn with the pile of poo emoji](/images/qr-test.png?raw=true "QR code to this repository")
+![A QR code drawn with the pile of poo emoji](/images/qr-test.png?raw=true 'QR code to this repository')
 
 ## Why it exists
 
@@ -74,14 +74,14 @@ Formatting is Prettier with tabs, following `~/git/.editorconfig`. ESLint
 carries only rules that catch bugs or dead code; anything stylistic is left to
 Prettier via `eslint-config-prettier`.
 
-| Command | Does |
-| --- | --- |
-| `npm run build` | Build the static site into `dist/` |
-| `npm run serve` | Serve `dist/` locally |
-| `npm test` | Unit, translation and browser tests |
-| `npm run lint` | ESLint plus a Prettier formatting check |
-| `npm run format` | Rewrite with Prettier, then apply ESLint's safe fixes |
-| `npm run images` | Regenerate `site/og.png` and the README example |
+| Command          | Does                                                            |
+| ---------------- | --------------------------------------------------------------- |
+| `npm run build`  | Build the static site into `dist/`                              |
+| `npm run serve`  | Serve `dist/` locally                                           |
+| `npm test`       | Unit, translation and browser tests                             |
+| `npm run lint`   | ESLint plus a Prettier formatting check                         |
+| `npm run format` | Rewrite with Prettier, then apply ESLint's safe fixes           |
+| `npm run images` | Regenerate `site/og.png` and the README example                 |
 | `npm run golden` | Regenerate the encoder fixtures — read `tools/golden.mjs` first |
 
 ## The encoder

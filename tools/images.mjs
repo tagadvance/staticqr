@@ -14,9 +14,9 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (path) => readFile(new URL(path, import.meta.url), 'utf8');
 
 const sources = {
-  glyph: await read('../src/glyph.js'),
-  qr: await read('../src/qr.js'),
-  render: await read('../src/render.js'),
+	glyph: await read('../src/glyph.js'),
+	qr: await read('../src/qr.js'),
+	render: await read('../src/render.js'),
 };
 
 const REPO = 'https://github.com/tagadvance/Crappy-QR';
@@ -25,27 +25,30 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 await page.goto('about:blank');
 
-const codes = await page.evaluate(async ({ sources, REPO }) => {
-  const load = (source) =>
-    'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(source)));
-  const glyphUrl = load(sources.glyph);
-  const { encode } = await import(load(sources.qr));
-  const { renderCanvas } = await import(
-    load(sources.render.replace("'./glyph.js'", JSON.stringify(glyphUrl)))
-  );
+const codes = await page.evaluate(
+	async ({ sources, REPO }) => {
+		const load = (source) =>
+			'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(source)));
+		const glyphUrl = load(sources.glyph);
+		const { encode } = await import(load(sources.qr));
+		const { renderCanvas } = await import(
+			load(sources.render.replace("'./glyph.js'", JSON.stringify(glyphUrl)))
+		);
 
-  const draw = (text, moduleSize) => {
-    const canvas = document.createElement('canvas');
-    renderCanvas(canvas, encode(text, { errorCorrection: 'H' }), { moduleSize });
-    return canvas.toDataURL();
-  };
+		const draw = (text, moduleSize) => {
+			const canvas = document.createElement('canvas');
+			renderCanvas(canvas, encode(text, { errorCorrection: 'H' }), { moduleSize });
+			return canvas.toDataURL();
+		};
 
-  return { card: draw(REPO, 12), readme: draw(REPO, 10) };
-}, { sources, REPO });
+		return { card: draw(REPO, 12), readme: draw(REPO, 10) };
+	},
+	{ sources, REPO },
+);
 
 await writeFile(
-  new URL('../images/qr-test.png', import.meta.url),
-  Buffer.from(codes.readme.split(',')[1], 'base64'),
+	new URL('../images/qr-test.png', import.meta.url),
+	Buffer.from(codes.readme.split(',')[1], 'base64'),
 );
 
 await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>
@@ -67,7 +70,10 @@ await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>
   </div>
 </body></html>`);
 await page.waitForLoadState('load');
-await page.screenshot({ path: fileURLToPath(new URL('../site/og.png', import.meta.url)), type: 'png' });
+await page.screenshot({
+	path: fileURLToPath(new URL('../site/og.png', import.meta.url)),
+	type: 'png',
+});
 
 await browser.close();
 console.log('wrote site/og.png and images/qr-test.png');
