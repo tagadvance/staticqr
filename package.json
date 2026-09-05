@@ -1,12 +1,12 @@
 {
-  "name": "static-qr",
+  "name": "staticqr",
   "version": "2.0.0",
   "private": true,
   "description": "A QR code generator that runs entirely in your browser and never sends your data anywhere",
   "homepage": "https://staticqr.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tagadvance/static-qr.git"
+    "url": "https://github.com/tagadvance/staticqr.git"
   },
   "license": "MIT",
   "type": "module",

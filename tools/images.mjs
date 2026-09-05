@@ -18,7 +18,7 @@ const sources = {
 	render: await read('../src/render.js'),
 };
 
-const REPO = 'https://github.com/tagadvance/static-qr';
+const REPO = 'https://github.com/tagadvance/staticqr';
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });

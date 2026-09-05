@@ -14,7 +14,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 
 export const ORIGIN = 'https://staticqr.com';
-export const REPOSITORY = 'https://github.com/tagadvance/static-qr';
+export const REPOSITORY = 'https://github.com/tagadvance/staticqr';
 export const SPONSOR = 'https://github.com/sponsors/tagadvance';
 export const DEFAULT_LANGUAGE = 'en';
 
