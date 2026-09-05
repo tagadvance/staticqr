@@ -97,7 +97,7 @@ function masthead(lang, page, strings) {
 
 	return `<header class="masthead"><div class="shell">
 <a class="brand" href="${pagePath(lang, 'index')}"><span aria-hidden="true">💩</span>${escapeHtml(strings.site.name)}</a>
-<nav class="primary" aria-label="${escapeHtml(strings.nav.generate)}">
+<nav class="primary" aria-label="${escapeHtml(strings.nav.primary)}">
 ${link('index', strings.nav.generate)}
 ${link('verify', strings.nav.verify)}
 ${link('safety', strings.nav.safety)}
@@ -105,8 +105,9 @@ ${link('safety', strings.nav.safety)}
 </div></header>`;
 }
 
-function footer(lang, page, strings, catalogue) {
-	const languages = Object.entries(catalogue)
+function footer(lang, page, strings, catalogue, order) {
+	const languages = order
+		.map((code) => [code, catalogue[code]])
 		.map(([code, other]) =>
 			code === lang
 				? `<li><span aria-current="true">${escapeHtml(other.name)}</span></li>`
@@ -290,7 +291,7 @@ ${masthead(lang, page, strings)}
 <main id="main"><div class="shell">
 ${BODIES[page](lang, strings)}
 </div></main>
-${footer(lang, page, strings, catalogue)}
+${footer(lang, page, strings, catalogue, languages)}
 </body>
 </html>
 `;

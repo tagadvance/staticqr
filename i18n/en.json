@@ -54,6 +54,8 @@
   "warning": {
     "title": "Stop. Check this before you share it.",
     "addressDetected": "That looks like a {kind} on {network}.",
+    "addressDetectedUnknown": "That looks like a Bitcoin address.",
+    "uriDetected": "That looks like a {family} payment link.",
     "hashDetected": "That looks like a transaction or block hash.",
     "ethDetected": "That looks like an Ethereum account address.",
     "checksumOk": "Its checksum is valid, so the address you typed is internally consistent.",

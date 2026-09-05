@@ -224,7 +224,10 @@ async function inspectBase58(text) {
  *
  * Returns null when the input does not resemble one at all.
  */
-export async function inspect(input) {
+export async function inspect(input, depth = 0) {
+	if (typeof input !== 'string') {
+		return null;
+	}
 	const text = input.trim();
 	if (text === '') {
 		return null;
@@ -233,19 +236,30 @@ export async function inspect(input) {
 	// A payment URI carries the address in its path.
 	const uri = /^(bitcoin|litecoin|ethereum|bitcoincash):([^?]+)/i.exec(text);
 	if (uri !== null) {
-		const inner = await inspect(uri[2]);
-		return inner === null
-			? { family: uri[1].toLowerCase(), encoding: 'uri', valid: false, reason: 'malformed' }
-			: { ...inner, wrappedInUri: true };
+		// A payment URI nested inside another is not a real thing, and
+		// recursing on it without a bound is a denial of service waiting to
+		// happen.
+		const inner = depth === 0 ? await inspect(uri[2], depth + 1) : null;
+		if (inner !== null) {
+			return { ...inner, wrappedInUri: true };
+		}
+		return {
+			family: uri[1].toLowerCase(),
+			encoding: 'uri',
+			kind: 'uri',
+			valid: null,
+			reason: null,
+			wrappedInUri: true,
+		};
 	}
 
 	if (/^(bc|tb|bcrt)1[a-z0-9]+$/i.test(text)) {
 		return inspectSegwit(text);
 	}
-	if (/^[13][1-9A-HJ-NP-Za-km-z]{25,39}$/.test(text)) {
+	if (/^[123mn][1-9A-HJ-NP-Za-km-z]{25,39}$/.test(text)) {
 		return inspectBase58(text);
 	}
-	if (/^0x[0-9a-fA-F]{40}$/.test(text)) {
+	if (/^0[xX][0-9a-fA-F]{40}$/.test(text)) {
 		// Deliberately shape-only. Verifying EIP-55 needs keccak256, which is a
 		// lot of code to add for a warning that already fires on the shape.
 		return { family: 'ethereum', encoding: 'hex', kind: 'account', valid: null, reason: null };

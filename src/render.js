@@ -97,7 +97,7 @@ export function renderCanvas(canvas, result, options = {}) {
 	canvas.width = Math.round(extent * devicePixelRatio);
 	canvas.height = Math.round(extent * devicePixelRatio);
 
-	const context = canvas.getContext('2d');
+	const context = canvas.getContext('2d', { willReadFrequently: true });
 	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
 	context.fillStyle = light;
 	context.fillRect(0, 0, extent, extent);
@@ -144,7 +144,7 @@ export function renderCanvasPlain(canvas, result, options = {}) {
 	canvas.width = Math.round(extent * devicePixelRatio);
 	canvas.height = Math.round(extent * devicePixelRatio);
 
-	const context = canvas.getContext('2d');
+	const context = canvas.getContext('2d', { willReadFrequently: true });
 	context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
 	context.fillStyle = light;
 	context.fillRect(0, 0, extent, extent);

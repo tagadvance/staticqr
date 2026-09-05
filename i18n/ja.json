@@ -54,6 +54,8 @@
   "warning": {
     "title": "共有する前に確認してください。",
     "addressDetected": "{network} の {kind} のようです。",
+    "addressDetectedUnknown": "ビットコインのアドレスのようです。",
+    "uriDetected": "{family} の支払いリンクのようです。",
     "hashDetected": "トランザクションまたはブロックのハッシュのようです。",
     "ethDetected": "Ethereum のアカウントアドレスのようです。",
     "checksumOk": "チェックサムは有効です。入力されたアドレスはそれ自体として矛盾がありません。",

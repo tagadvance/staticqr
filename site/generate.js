@@ -54,11 +54,19 @@ function stopSign() {
 
 function describeAddress(report) {
 	const { warning: copy } = strings;
+	if (report.kind === 'uri') {
+		return format(copy.uriDetected, { family: report.family });
+	}
 	if (report.family === 'ethereum') {
 		return copy.ethDetected;
 	}
 	if (report.kind === 'hash') {
 		return copy.hashDetected;
+	}
+	// A failed checksum tells us the string is address-shaped but not what
+	// kind or network it was meant to be, so there is nothing to name.
+	if (!report.kind || !report.network) {
+		return copy.addressDetectedUnknown;
 	}
 	return format(copy.addressDetected, { kind: report.kind, network: report.network });
 }

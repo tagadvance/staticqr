@@ -54,6 +54,8 @@
   "warning": {
     "title": "Stop. Vérifiez ceci avant de le partager.",
     "addressDetected": "Cela ressemble à une {kind} sur {network}.",
+    "addressDetectedUnknown": "Cela ressemble à une adresse Bitcoin.",
+    "uriDetected": "Cela ressemble à un lien de paiement {family}.",
     "hashDetected": "Cela ressemble à un hachage de transaction ou de bloc.",
     "ethDetected": "Cela ressemble à l'adresse d'un compte Ethereum.",
     "checksumOk": "Sa somme de contrôle est valide, donc l'adresse saisie est cohérente en elle-même.",

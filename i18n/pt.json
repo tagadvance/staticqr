@@ -54,6 +54,8 @@
   "warning": {
     "title": "Pare. Verifique isto antes de partilhar.",
     "addressDetected": "Isto parece um {kind} na {network}.",
+    "addressDetectedUnknown": "Isto parece um endereço de Bitcoin.",
+    "uriDetected": "Isto parece uma ligação de pagamento de {family}.",
     "hashDetected": "Isto parece o hash de uma transação ou de um bloco.",
     "ethDetected": "Isto parece o endereço de uma conta Ethereum.",
     "checksumOk": "A soma de verificação é válida, por isso o endereço que escreveu é internamente coerente.",

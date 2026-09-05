@@ -54,6 +54,8 @@
   "warning": {
     "title": "Alto. Comprueba esto antes de compartirlo.",
     "addressDetected": "Esto parece una {kind} en {network}.",
+    "addressDetectedUnknown": "Esto parece una dirección de Bitcoin.",
+    "uriDetected": "Esto parece un enlace de pago de {family}.",
     "hashDetected": "Esto parece el hash de una transacción o de un bloque.",
     "ethDetected": "Esto parece la dirección de una cuenta de Ethereum.",
     "checksumOk": "Su suma de verificación es válida, así que la dirección que escribiste es internamente coherente.",
