@@ -12,6 +12,8 @@
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
+    "images": "node tools/images.mjs",
+    "golden": "node tools/golden.mjs",
     "test": "node --test test/",
     "serve": "node tools/serve.mjs"
   },

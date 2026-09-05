@@ -41,6 +41,7 @@ export function renderSvg(result, options = {}) {
     light = DEFAULT_LIGHT,
     coverage = DEFAULT_COVERAGE,
     title = 'QR code',
+    plain = false,
   } = options;
 
   const extent = (result.size + border * 2) * moduleSize;
@@ -57,7 +58,7 @@ export function renderSvg(result, options = {}) {
       }
       const x = (col + border) * moduleSize;
       const y = (row + border) * moduleSize;
-      if (result.isFunction[row][col]) {
+      if (plain || result.isFunction[row][col]) {
         rects.push(`<rect x="${x}" y="${y}" width="${moduleSize}" height="${moduleSize}"/>`);
       } else {
         uses.push(`<use href="#m" x="${x}" y="${y}"/>`);
@@ -70,7 +71,9 @@ export function renderSvg(result, options = {}) {
     ` width="${extent}" height="${extent}" role="img" aria-label="${escapeXml(title)}">`,
     `<title>${escapeXml(title)}</title>`,
     `<rect width="100%" height="100%" fill="${light}"/>`,
-    `<defs><g id="m" transform="matrix(${transform})"><path d="${GLYPH_PATH}"/></g></defs>`,
+    uses.length === 0
+      ? ''
+      : `<defs><g id="m" transform="matrix(${transform})"><path d="${GLYPH_PATH}"/></g></defs>`,
     `<g fill="${dark}">${rects.join('')}${uses.join('')}</g>`,
     '</svg>',
   ].join('');

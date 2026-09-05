@@ -1,0 +1,154 @@
+{
+  "lang": "en",
+  "name": "English",
+  "dir": "ltr",
+  "site": {
+    "name": "Static QR",
+    "tagline": "A QR code generator that never sends your data anywhere."
+  },
+  "nav": {
+    "generate": "Generate",
+    "verify": "Check a code",
+    "safety": "Why this matters",
+    "language": "Language"
+  },
+  "common": {
+    "offlineProof": "Turn off your internet connection and reload. This page still works, because there is nothing to talk to.",
+    "sourceLink": "Read the source",
+    "skipToContent": "Skip to content"
+  },
+  "index": {
+    "title": "QR Code Generator That Runs Entirely In Your Browser",
+    "description": "Generate a QR code without uploading anything. Everything happens in your browser, the result is checked by scanning it back, and nothing is ever sent to a server.",
+    "h1": "Make a QR code without trusting anyone",
+    "intro": "Type anything below and this page will encode it into a QR code. The encoding happens in your browser using code you can read. Nothing you type is uploaded, logged, or seen by a server, because there is no server.",
+    "inputLabel": "Text, URL or address to encode",
+    "inputPlaceholder": "https://example.com",
+    "optionsHeading": "Options",
+    "errorCorrectionLabel": "Error correction",
+    "errorCorrectionHelp": "Higher levels survive more damage but make a denser code.",
+    "moduleSizeLabel": "Size",
+    "styleLabel": "Style",
+    "stylePoo": "Pile of poo",
+    "stylePlain": "Plain squares",
+    "downloadPng": "Download PNG",
+    "downloadSvg": "Download SVG",
+    "resultHeading": "Your code",
+    "emptyState": "Your QR code will appear here.",
+    "tooLong": "That is too much data for a single QR code. Try something shorter, or lower the error correction level.",
+    "metaVersion": "Version {version}, {size}×{size} modules, error correction {level}",
+    "whyPoo": "Why is it made of poo?",
+    "whyPooBody": "Because this started as a joke and the joke stuck. The piles are only drawn over the data modules. The three corner squares, the timing lines and the alignment markers stay solid, because a scanner finds a code by measuring those, and emoji-shaped corners make a code that no scanner can find at all."
+  },
+  "readback": {
+    "heading": "Verification",
+    "checking": "Scanning the generated image back…",
+    "passTitle": "This code scans back to exactly what you typed.",
+    "passBody": "The image above was decoded again after it was drawn, and the result matched your input character for character.",
+    "failTitle": "This code did not scan back correctly.",
+    "failBody": "Do not use it. Switch to plain squares, or make the code larger, and check again.",
+    "failFallback": "Switch to plain squares",
+    "decodedLabel": "Decoded value",
+    "unsupported": "Your browser cannot decode images here, so this code has not been checked. Scan it yourself before sharing it."
+  },
+  "warning": {
+    "title": "Stop. Check this before you share it.",
+    "addressDetected": "That looks like a {kind} on {network}.",
+    "hashDetected": "That looks like a transaction or block hash.",
+    "ethDetected": "That looks like an Ethereum account address.",
+    "checksumOk": "Its checksum is valid, so the address you typed is internally consistent.",
+    "checksumBad": "Its checksum does not add up. The address you typed is corrupted or mistyped — do not use it.",
+    "checksumUnknown": "This site does not verify checksums for this kind of address.",
+    "body": "A QR code is not human readable. Nobody can tell by looking whether it holds your address or someone else's. Scan this code with the device you would actually pay from, and compare the whole string against your address — not just the first and last few characters.",
+    "why": "Why the first and last characters are not enough",
+    "whyBody": "An attacker can generate an address that starts and ends with the same characters as yours. Checking only the ends is exactly the check they expect you to make.",
+    "learnMore": "Read how this attack works"
+  },
+  "verify": {
+    "title": "Check What A QR Code Actually Contains",
+    "description": "Decode any QR code image and see exactly what it holds. Compare it against the address or link you expected. Runs entirely in your browser.",
+    "h1": "Check a QR code before you trust it",
+    "intro": "Upload a QR code image, or point your camera at one, and this page will tell you exactly what it contains. It works on codes made anywhere, by anyone. Like the rest of this site, the image never leaves your device.",
+    "dropLabel": "Drop a QR code image here, or choose a file",
+    "chooseFile": "Choose an image",
+    "useCamera": "Use camera",
+    "stopCamera": "Stop camera",
+    "expectedLabel": "What did you expect it to contain? (optional)",
+    "expectedPlaceholder": "Paste the address or link you were given",
+    "decodedHeading": "What this code contains",
+    "noCode": "No QR code was found in that image. Try a sharper or less cropped picture.",
+    "matchTitle": "This matches what you expected.",
+    "matchBody": "The code decodes to exactly the text you pasted.",
+    "mismatchTitle": "This does not match what you expected.",
+    "mismatchBody": "The code contains something different from the text you pasted. Do not pay it. Compare the two strings below carefully.",
+    "yours": "What you expected",
+    "theirs": "What the code contains",
+    "cameraDenied": "Camera access was refused, so nothing can be scanned that way. You can still upload an image.",
+    "cameraUnsupported": "This browser will not give this page a camera. You can still upload an image.",
+    "factKind": "Kind",
+    "factNetwork": "Network",
+    "factChecksum": "Checksum",
+    "checksumValid": "Valid",
+    "checksumInvalid": "Does not add up",
+    "checksumNotChecked": "Not checked for this kind",
+    "pasteHint": "You can also paste a screenshot straight onto this page."
+  },
+  "safety": {
+    "title": "Why You Should Never Trust An Online QR Code Generator",
+    "description": "Search results for QR code generators have repeatedly served sites that quietly swap a cryptocurrency address for the attacker's own. Here is how the attack works and how to check for it.",
+    "h1": "Why you should never trust an online QR code generator",
+    "lead": "A QR code is not human readable. That single fact is what the whole attack rests on.",
+    "originHeading": "How this site started",
+    "originBody": "This project began because of a simple test. Search for a QR code generator, take the top few results, paste in a Bitcoin address, and compare what comes back. Several of them returned a code that did not contain the address that was typed in. It contained somebody else's.",
+    "attackHeading": "How the substitution works",
+    "attackBody": "You paste your payment address into a website. The site returns a picture. You cannot read a picture of a QR code, so you accept it, put it on an invoice, a poster, a donation page or a business card, and throw away the original text. Every person who scans it pays the attacker instead of you. Nothing looks wrong at any point, and by the time anyone notices, the money is gone and the printed code is already in circulation.",
+    "whyWorksHeading": "Why it keeps working",
+    "whyWorksPoints": [
+      "You cannot tell two QR codes apart by looking at them. Neither can anyone you send it to.",
+      "The generator is used exactly once, at the moment the original text is still on screen, and then never again.",
+      "The code often ends up printed, screenshotted or embedded somewhere the original text no longer exists, so there is nothing left to compare against.",
+      "People who do check tend to compare only the first and last few characters. Attackers generate addresses that match those."
+    ],
+    "protectHeading": "How to protect yourself",
+    "protectPoints": [
+      "Scan every QR code yourself before you share it, using the device you would actually pay from.",
+      "Compare the entire string, character by character, not just the ends.",
+      "Prefer a generator that works with the network turned off. If it needs a server, the server can change your data.",
+      "Check the address checksum. Bitcoin addresses carry one, and a corrupted address will fail it.",
+      "Regenerate the code yourself rather than reusing one somebody sent you."
+    ],
+    "thisSiteHeading": "What this site does differently",
+    "thisSitePoints": [
+      "The QR code is built in your browser. Nothing you type is transmitted anywhere, because the site has no server to transmit to.",
+      "After drawing the code, the page decodes the image it just produced and shows you what it reads back. If that does not match what you typed, it says so.",
+      "The content security policy allows no external origins at all, so the page cannot load or contact anything, even by accident.",
+      "The whole thing is static files and open source. You can read every line, save the page, and run it offline forever."
+    ],
+    "trustHeading": "Do not take this site's word for it either",
+    "trustBody": "Everything above is a reason to distrust QR code generators, and this is a QR code generator. The readback check on the generator page is a convenience, not a proof — it is the same code that drew the image. The only check that really counts is the one you do yourself, on your own device, against your own address. Do that one.",
+    "faqHeading": "Common questions",
+    "faq": [
+      {
+        "q": "Can a QR code generator change my Bitcoin address?",
+        "a": "Yes. If the code is generated on someone else's server, that server decides what goes into the image. It can return a code containing any address it likes, and the picture will look completely normal."
+      },
+      {
+        "q": "How do I check that a QR code contains the right address?",
+        "a": "Scan it with the device you would pay from and compare the decoded text against your address in full. Do not compare only the first and last few characters, because an attacker can match those."
+      },
+      {
+        "q": "Is it safe to use an online QR code generator for a wallet address?",
+        "a": "Only if the generator runs entirely in your browser and you verify the result by scanning it. Anything that sends your address to a server is asking you to trust that server with your money."
+      },
+      {
+        "q": "Does this site send my data anywhere?",
+        "a": "No. The page is static and the encoding runs in your browser. You can disconnect from the internet, reload, and it will keep working."
+      }
+    ]
+  },
+  "footer": {
+    "builtBy": "Built by {author}.",
+    "sourceOn": "Source on GitHub",
+    "licence": "MIT licensed."
+  }
+}
