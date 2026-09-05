@@ -10,7 +10,6 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
 
-const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (path) => readFile(new URL(path, import.meta.url), 'utf8');
 
 const sources = {

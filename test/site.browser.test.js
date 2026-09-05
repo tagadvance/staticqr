@@ -8,7 +8,7 @@
  * Requires a build (npm run build) and a browser (npx playwright install chromium).
  */
 import assert from 'node:assert/strict';
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 
 import { listen } from '../tools/serve.mjs';

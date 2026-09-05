@@ -138,7 +138,7 @@ function renderReadback(text) {
 	readback.append(fallback);
 }
 
-function setDownloads(text) {
+function setDownloads() {
 	downloadPng.disabled = false;
 	downloadSvg.disabled = false;
 
@@ -209,7 +209,7 @@ async function update() {
 		level,
 	});
 
-	setDownloads(text);
+	setDownloads();
 	renderReadback(text);
 	await renderWarning(text);
 }

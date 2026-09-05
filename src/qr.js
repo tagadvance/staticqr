@@ -277,8 +277,8 @@ const PENALTY_N4 = 10;
 
 const MASK_FUNCTIONS = [
 	(x, y) => (x + y) % 2 === 0,
-	(x, y) => y % 2 === 0,
-	(x, y) => x % 3 === 0,
+	(_x, y) => y % 2 === 0,
+	(x, _y) => x % 3 === 0,
 	(x, y) => (x + y) % 3 === 0,
 	(x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0,
 	(x, y) => ((x * y) % 2) + ((x * y) % 3) === 0,
