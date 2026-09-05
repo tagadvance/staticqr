@@ -17,12 +17,15 @@ import { rasterise } from './support/raster.js';
 const golden = JSON.parse(readFileSync(new URL('./fixtures/golden.json', import.meta.url)));
 
 /**
- * jsQR cannot decode version 23 symbols. This was confirmed to be a decoder
- * fault rather than an encoder one: our version 23 matrices are byte-identical
- * to those produced by the Python `qrcode` library, and jsQR fails on both.
- * The golden fixtures still cover version 23.
+ * jsQR cannot decode version 23 at error correction level L.
+ *
+ * The fault is the decoder's, not ours: jsQR's alignment-pattern table has
+ * 74 for version 23 where the specification says 78, which corrupts a band of
+ * the codeword stream. Levels M, Q and H carry enough redundancy to recover;
+ * L does not. Our version 23 matrices are byte-identical to those produced by
+ * the Python `qrcode` library, and jsQR fails on both.
  */
-const VERSIONS_JSQR_CANNOT_DECODE = new Set([23]);
+const JSQR_CANNOT_DECODE = new Set(['23-L']);
 
 function decode(result) {
 	const { data, width, height } = rasterise(result.modules);
@@ -129,15 +132,73 @@ test('round-trips every explicit mask', () => {
 	}
 });
 
-test('round-trips a full payload at every version', () => {
+test('round-trips an exactly full payload at every version and level', () => {
+	// Lowercase, so this is byte mode and capacityBytes is the real boundary.
+	// Uppercase would select alphanumeric at 5.5 bits per character and fill
+	// barely two thirds of the symbol, leaving the terminator, the byte
+	// alignment and the 0xEC/0x11 padding run untested.
 	for (let version = 1; version <= 40; version++) {
-		if (VERSIONS_JSQR_CANNOT_DECODE.has(version)) {
-			continue;
+		for (const ecl of ERROR_CORRECTION_LEVELS) {
+			if (JSQR_CANNOT_DECODE.has(`${version}-${ecl}`)) {
+				continue;
+			}
+			const payload = 'a'.repeat(capacityBytes(version, ecl));
+			const result = encode(payload, { errorCorrection: ecl, minVersion: version });
+			assert.equal(result.version, version, `expected version ${version} at level ${ecl}`);
+			assert.equal(decode(result), payload, `failed to decode version ${version}-${ecl}`);
 		}
-		const payload = 'A'.repeat(capacityBytes(version, 'H') - 3);
-		const result = encode(payload, { errorCorrection: 'H', minVersion: version });
+	}
+});
+
+test('capacityBytes is the exact boundary, not an estimate', () => {
+	for (let version = 1; version <= 40; version++) {
+		for (const ecl of ERROR_CORRECTION_LEVELS) {
+			const limit = capacityBytes(version, ecl);
+			const options = { errorCorrection: ecl, minVersion: version, maxVersion: version };
+			assert.equal(encode('a'.repeat(limit), options).version, version);
+			assert.throws(
+				() => encode('a'.repeat(limit + 1), options),
+				DataTooLongError,
+				`version ${version}-${ecl} accepted one byte over its stated capacity`,
+			);
+		}
+	}
+});
+
+test('chooses a mask by penalty rather than always taking the first', () => {
+	// Making penaltyScore return a constant passes every other test in this
+	// suite, because any mask decodes. These payloads pin masks that were
+	// cross-checked against the Python qrcode library, and the distinctness
+	// assertion is what actually catches a scoring function that has stopped
+	// discriminating.
+	const expected = [
+		['https://staticqr.com/', 4],
+		['1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', 1],
+		['bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq', 2],
+		['HELLO WORLD', 5],
+		['こんにちは世界', 5],
+		['0123456789', 6],
+		['The quick brown fox jumps over the lazy dog.', 7],
+	];
+	const chosen = [];
+	for (const [payload, mask] of expected) {
+		const result = encode(payload, { errorCorrection: 'H' });
+		assert.equal(result.mask, mask, `mask changed for ${payload.slice(0, 24)}`);
+		chosen.push(result.mask);
+	}
+	assert.ok(new Set(chosen).size >= 5, 'mask selection is not discriminating between masks');
+});
+
+test('round-trips numeric payloads in every character-count tier', () => {
+	// The numeric count indicator is 10 bits up to version 9, 12 bits to
+	// version 26 and 14 bits above it. The corpus's only numeric payload lands
+	// at version 8, so two of the three tiers were never exercised: mutating
+	// either of the wider widths passed the whole suite.
+	const payload = '9876543210'.repeat(2);
+	for (const version of [1, 9, 10, 26, 27, 40]) {
+		const result = encode(payload, { errorCorrection: 'M', minVersion: version });
 		assert.equal(result.version, version);
-		assert.equal(decode(result), payload, `failed to decode version ${version}`);
+		assert.equal(decode(result), payload, `failed at version ${version}`);
 	}
 });
 

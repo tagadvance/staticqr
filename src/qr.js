@@ -640,7 +640,16 @@ export function encode(text, options = {}) {
 	};
 }
 
-/** Largest string length that still fits, useful for input validation. */
+/**
+ * Largest byte-mode payload that fits, useful for input validation.
+ *
+ * This is the data capacity minus the mode indicator and the character count
+ * header, which is 12 bits up to version 9 and 20 bits above it. Returning the
+ * raw codeword count instead overstates the limit by two or three bytes, so a
+ * caller validating against it would accept a payload and then be handed a
+ * DataTooLongError.
+ */
 export function capacityBytes(version, errorCorrection) {
-	return numDataCodewords(version, errorCorrection);
+	const headerBits = 4 + charCountBits(MODE_BYTE, version);
+	return Math.floor((numDataCodewords(version, errorCorrection) * 8 - headerBits) / 8);
 }
