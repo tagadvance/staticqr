@@ -6,7 +6,7 @@
   "homepage": "https://staticqr.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tagadvance/Crappy-QR.git"
+    "url": "https://github.com/tagadvance/static-qr.git"
   },
   "license": "MIT",
   "type": "module",

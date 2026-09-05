@@ -1,7 +1,7 @@
 # Static QR
 
-[![CI](https://github.com/tagadvance/Crappy-QR/actions/workflows/ci.yml/badge.svg)](https://github.com/tagadvance/Crappy-QR/actions/workflows/ci.yml)
-[![Deploy to Pages](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml/badge.svg)](https://github.com/tagadvance/Crappy-QR/actions/workflows/pages.yml)
+[![CI](https://github.com/tagadvance/static-qr/actions/workflows/ci.yml/badge.svg)](https://github.com/tagadvance/static-qr/actions/workflows/ci.yml)
+[![Deploy to Pages](https://github.com/tagadvance/static-qr/actions/workflows/pages.yml/badge.svg)](https://github.com/tagadvance/static-qr/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Site](https://img.shields.io/badge/site-staticqr.com-6b4423)](https://staticqr.com)
 [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-db61a2)](https://github.com/sponsors/tagadvance)
@@ -11,8 +11,8 @@ transmitted, because there is nowhere to transmit it to. Live at
 **[staticqr.com](https://staticqr.com)**.
 
 It also draws QR codes out of the pile of poo emoji, which is how the project
-started and why the repository is called Crappy-QR. That is a style option now,
-rather than the default.
+started and where its old name, Crappy-QR, came from. That is a style option
+now, rather than the default.
 
 ![A QR code drawn with the pile of poo emoji](/images/qr-test.png?raw=true 'QR code to this repository')
 
