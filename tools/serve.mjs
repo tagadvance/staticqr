@@ -7,7 +7,7 @@ import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { createServer as createHttpServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const DIST = fileURLToPath(new URL('../dist', import.meta.url));
 
@@ -23,8 +23,15 @@ const TYPES = {
 };
 
 async function resolve(root, pathname) {
-	// normalize collapses any .. before it can escape the root.
-	const candidate = join(root, normalize(decodeURIComponent(pathname)));
+	let candidate;
+	try {
+		// A malformed percent-escape throws, and this used to sit outside the
+		// try, so GET /%ZZ took the whole server down.
+		// normalize collapses any .. before it can escape the root.
+		candidate = join(root, normalize(decodeURIComponent(pathname)));
+	} catch {
+		return null;
+	}
 	if (!candidate.startsWith(root)) {
 		return null;
 	}
@@ -72,7 +79,8 @@ export function listen(root = DIST) {
 	});
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// argv[1] is undefined when this module is loaded by `node -e`.
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
 	const port = Number(process.env.PORT ?? 8080);
 	createServer().listen(port, () => {
 		console.log(`serving dist/ on http://localhost:${port}`);

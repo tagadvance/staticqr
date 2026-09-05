@@ -8,7 +8,7 @@
  */
 import { copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
@@ -410,4 +410,9 @@ async function main() {
 	console.log(`built ${languages.length} languages × ${PAGES.length} pages into dist/`);
 }
 
-await main();
+// Importing this module must not rebuild anything: main() begins by deleting
+// dist/, and the tests import it for pagePath and ORIGIN.
+// argv[1] is undefined when this module is loaded by `node -e`.
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
+	await main();
+}

@@ -16,7 +16,7 @@
     "golden": "node tools/golden.mjs",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write . && eslint --fix .",
-    "test": "node --test test/*.test.js",
+    "test": "npm run build && node --test test/*.test.js",
     "serve": "node tools/serve.mjs"
   },
   "devDependencies": {

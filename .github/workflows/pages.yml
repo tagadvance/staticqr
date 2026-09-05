@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Never cancel a running deploy; let it finish and queue the next one.
 concurrency:
@@ -28,6 +26,23 @@ jobs:
 
       - run: npm ci
 
+      # This workflow deploys straight to production and does not depend on
+      # the CI workflow, which runs in parallel on the same push. Without
+      # these steps a commit that breaks the encoder goes live before anyone
+      # sees CI turn red.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - run: npm run lint
+
+      - run: npm test
+
       - run: npm run build
 
       # enablement turns Pages on for the repository if it is not already,
@@ -43,6 +58,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Only the deploy job needs these. The build job is the one that runs npm
+    # lifecycle scripts from the dependency tree.
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
