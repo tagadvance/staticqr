@@ -10,11 +10,11 @@ A QR code generator that runs entirely in your browser. Nothing you type is
 transmitted, because there is nowhere to transmit it to. Live at
 **[staticqr.com](https://staticqr.com)**.
 
-It also draws QR codes out of the pile of poo emoji, which is how the project
+It also draws QR codes out of the poo emoji, which is how the project
 started and where its old name, Crappy-QR, came from. That is a style option
 now, rather than the default.
 
-![A QR code drawn with the pile of poo emoji](/images/qr-test.png?raw=true 'QR code to this repository')
+![A QR code drawn with the poo emoji](/images/qr-test.png?raw=true 'QR code to this repository')
 
 ## Why it exists
 

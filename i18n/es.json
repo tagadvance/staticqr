@@ -29,7 +29,7 @@
     "errorCorrectionHelp": "Los niveles altos resisten más daño, pero generan un código más denso.",
     "moduleSizeLabel": "Tamaño",
     "styleLabel": "Estilo",
-    "stylePoo": "Montón de caca",
+    "stylePoo": "💩 Emoji de caca",
     "stylePlain": "Cuadrados simples",
     "downloadPng": "Descargar PNG",
     "downloadSvg": "Descargar SVG",
@@ -37,8 +37,8 @@
     "emptyState": "Aquí aparecerá tu código QR.",
     "tooLong": "Son demasiados datos para un solo código QR. Prueba con algo más corto o baja el nivel de corrección de errores.",
     "metaVersion": "Versión {version}, {size}×{size} módulos, corrección de errores {level}",
-    "whyPoo": "También hay un modo montón de caca",
-    "whyPooBody": "Esto empezó como una broma sobre construir códigos QR con el emoji del montón de caca, y la broma sigue en el menú de estilo. Los cuadrados simples son la opción por defecto porque se leen en más dispositivos y se imprimen más pequeños. En el modo caca los montones solo se dibujan sobre los módulos de datos: los tres cuadrados de las esquinas, las líneas de sincronización y los marcadores de alineación siguen siendo sólidos, porque un escáner localiza el código midiéndolos, y unas esquinas con forma de emoji dan lugar a un código que ningún escáner puede encontrar."
+    "whyPoo": "También hay un modo emoji de caca",
+    "whyPooBody": "Esto empezó como una broma sobre construir códigos QR con el emoji de caca, y la broma sigue en el menú de estilo. Los cuadrados simples son la opción por defecto porque se leen en más dispositivos y se imprimen más pequeños. En el modo caca el emoji solo se dibuja sobre los módulos de datos: los tres cuadrados de las esquinas, las líneas de sincronización y los marcadores de alineación siguen siendo sólidos, porque un escáner localiza el código midiéndolos, y unas esquinas con forma de emoji dan lugar a un código que ningún escáner puede encontrar."
   },
   "readback": {
     "heading": "Verificación",

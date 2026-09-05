@@ -1,5 +1,5 @@
 /**
- * The pile-of-poo glyph as a plain vector outline.
+ * The poo emoji as a plain vector outline.
  *
  * Taken from Noto Emoji, converted to a path once at build time and used
  * under the SIL Open Font License, served alongside this file at

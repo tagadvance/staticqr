@@ -29,7 +29,7 @@
     "errorCorrectionHelp": "Níveis mais altos resistem a mais danos, mas tornam o código mais denso.",
     "moduleSizeLabel": "Tamanho",
     "styleLabel": "Estilo",
-    "stylePoo": "Monte de cocó",
+    "stylePoo": "💩 Emoji de cocó",
     "stylePlain": "Quadrados simples",
     "downloadPng": "Transferir PNG",
     "downloadSvg": "Transferir SVG",
@@ -37,8 +37,8 @@
     "emptyState": "O seu código QR aparecerá aqui.",
     "tooLong": "São demasiados dados para um único código QR. Experimente algo mais curto ou baixe o nível de correção de erros.",
     "metaVersion": "Versão {version}, {size}×{size} módulos, correção de erros {level}",
-    "whyPoo": "Também existe um modo monte de cocó",
-    "whyPooBody": "Isto começou como uma piada sobre construir códigos QR com o emoji do monte de cocó, e a piada continua no menu de estilo. Os quadrados simples são a opção predefinida porque são lidos em mais dispositivos e imprimem-se mais pequenos. No modo cocó os montes só são desenhados sobre os módulos de dados: os três quadrados dos cantos, as linhas de temporização e os marcadores de alinhamento continuam sólidos, porque é medindo-os que um leitor encontra o código, e cantos em forma de emoji produzem um código que nenhum leitor consegue encontrar."
+    "whyPoo": "Também existe um modo emoji de cocó",
+    "whyPooBody": "Isto começou como uma piada sobre construir códigos QR com o emoji de cocó, e a piada continua no menu de estilo. Os quadrados simples são a opção predefinida porque são lidos em mais dispositivos e imprimem-se mais pequenos. No modo cocó o emoji só é desenhado sobre os módulos de dados: os três quadrados dos cantos, as linhas de temporização e os marcadores de alinhamento continuam sólidos, porque é medindo-os que um leitor encontra o código, e cantos em forma de emoji produzem um código que nenhum leitor consegue encontrar."
   },
   "readback": {
     "heading": "Verificação",

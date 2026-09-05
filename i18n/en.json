@@ -29,7 +29,7 @@
     "errorCorrectionHelp": "Higher levels survive more damage but make a denser code.",
     "moduleSizeLabel": "Size",
     "styleLabel": "Style",
-    "stylePoo": "Pile of poo",
+    "stylePoo": "💩 Poo emoji",
     "stylePlain": "Plain squares",
     "downloadPng": "Download PNG",
     "downloadSvg": "Download SVG",
@@ -37,8 +37,8 @@
     "emptyState": "Your QR code will appear here.",
     "tooLong": "That is too much data for a single QR code. Try something shorter, or lower the error correction level.",
     "metaVersion": "Version {version}, {size}×{size} modules, error correction {level}",
-    "whyPoo": "There is also a pile of poo mode",
-    "whyPooBody": "This started as a joke about building QR codes out of the pile of poo emoji, and the joke is still in the style menu. Plain squares are the default because they scan on more hardware and print smaller. In poo mode the piles are drawn only over the data modules: the three corner squares, the timing lines and the alignment markers stay solid, because a scanner finds a code by measuring those, and emoji-shaped corners make a code that no scanner can find at all."
+    "whyPoo": "There is also a poo emoji mode",
+    "whyPooBody": "This started as a joke about building QR codes out of the poo emoji, and the joke is still in the style menu. Plain squares are the default because they scan on more hardware and print smaller. In poo mode the emoji is drawn only over the data modules: the three corner squares, the timing lines and the alignment markers stay solid, because a scanner finds a code by measuring those, and emoji-shaped corners make a code that no scanner can find at all."
   },
   "readback": {
     "heading": "Verification",

@@ -29,7 +29,7 @@
     "errorCorrectionHelp": "Les niveaux élevés résistent à plus de dégâts, mais donnent un code plus dense.",
     "moduleSizeLabel": "Taille",
     "styleLabel": "Style",
-    "stylePoo": "Tas de crotte",
+    "stylePoo": "💩 Emoji crotte",
     "stylePlain": "Carrés simples",
     "downloadPng": "Télécharger le PNG",
     "downloadSvg": "Télécharger le SVG",
@@ -37,8 +37,8 @@
     "emptyState": "Votre QR code apparaîtra ici.",
     "tooLong": "Cela fait trop de données pour un seul QR code. Essayez quelque chose de plus court, ou baissez le niveau de correction d'erreurs.",
     "metaVersion": "Version {version}, {size}×{size} modules, correction d'erreurs {level}",
-    "whyPoo": "Il existe aussi un mode tas de crotte",
-    "whyPooBody": "Tout cela a commencé comme une blague : fabriquer des QR codes avec l'emoji du tas de crotte. La blague est toujours dans le menu Style. Les carrés simples sont la valeur par défaut parce qu'ils se lisent sur plus d'appareils et s'impriment plus petits. En mode crotte, les tas ne sont dessinés que sur les modules de données : les trois carrés d'angle, les lignes de synchronisation et les repères d'alignement restent pleins, car c'est en les mesurant qu'un lecteur trouve le code, et des angles en forme d'emoji donnent un code qu'aucun lecteur ne parvient à trouver."
+    "whyPoo": "Il existe aussi un mode emoji crotte",
+    "whyPooBody": "Tout cela a commencé comme une blague : fabriquer des QR codes avec l'emoji crotte. La blague est toujours dans le menu Style. Les carrés simples sont la valeur par défaut parce qu'ils se lisent sur plus d'appareils et s'impriment plus petits. En mode crotte, l'emoji n'est dessiné que sur les modules de données : les trois carrés d'angle, les lignes de synchronisation et les repères d'alignement restent pleins, car c'est en les mesurant qu'un lecteur trouve le code, et des angles en forme d'emoji donnent un code qu'aucun lecteur ne parvient à trouver."
   },
   "readback": {
     "heading": "Vérification",
