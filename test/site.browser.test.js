@@ -351,3 +351,61 @@ test('a code that fails its own readback cannot be downloaded', options, async (
 		await page.close();
 	});
 });
+
+test("the page refuses to render inside someone else's frame", options, async () => {
+	// Clickjacking cannot be closed properly here: frame-ancestors and
+	// X-Frame-Options are both response headers, GitHub Pages does not let you
+	// set headers, and frame-ancestors is ignored when the policy arrives in a
+	// meta tag. Hiding the body is the fallback, and it has to hold even when
+	// the framer forbids the navigation that would otherwise break us out.
+	const failures = await withSite(async (browser, origin) => {
+		const found = [];
+		const host = origin.replace('http://', '');
+
+		for (const attributes of [
+			'',
+			'sandbox="allow-scripts"',
+			'sandbox="allow-scripts allow-same-origin"',
+		]) {
+			const page = await browser.newPage();
+			await page.setContent(
+				`<h1>a page that is not ours</h1><iframe ${attributes} src="${origin}/" width="800" height="500" style="opacity:0.3"></iframe>`,
+			);
+			await page.waitForTimeout(1500);
+
+			const frame = page.frames().find((candidate) => candidate.url().includes(host));
+			if (frame === undefined) {
+				await page.close();
+				continue;
+			}
+
+			const display = await frame.evaluate(() => getComputedStyle(document.body).display);
+			if (display !== 'none') {
+				found.push(`framed with [${attributes || 'no attributes'}] rendered as ${display}`);
+			}
+			await page.close();
+		}
+		return found;
+	});
+
+	assert.deepEqual(failures, []);
+});
+
+test('framing defences leave the top-level page alone', options, async () => {
+	await withSite(async (browser, origin) => {
+		const { page, problems } = await open(browser, origin + pagePath(DEFAULT_LANGUAGE, 'index'));
+		assert.equal(
+			await page.evaluate(() => document.documentElement.hasAttribute('data-framed')),
+			false,
+		);
+		assert.equal(await page.evaluate(() => getComputedStyle(document.body).display), 'block');
+
+		await page.fill('#data', 'https://staticqr.com/');
+		await page.waitForFunction(() => !document.querySelector('#readback').hidden, {
+			timeout: 8000,
+		});
+		assert.ok((await page.getAttribute('#readback', 'class')).includes('ok'));
+		assert.deepEqual(problems, []);
+		await page.close();
+	});
+});

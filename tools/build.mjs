@@ -95,6 +95,7 @@ function head({ lang, page, strings, languages, title, description }) {
 	return `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="${CSP}">
+<script src="/assets/topframe.js"></script>
 <title>${escapeHtml(title)} — ${escapeHtml(strings.site.name)}</title>
 <meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${canonical}">
@@ -398,6 +399,7 @@ async function main() {
 		['site/check.js', 'check.js'],
 		['site/decode.js', 'decode.js'],
 		['site/format.js', 'format.js'],
+		['site/topframe.js', 'topframe.js'],
 		['site/styles.css', 'styles.css'],
 		['node_modules/jsqr/dist/jsQR.js', 'jsQR.js'],
 		['site/og.png', 'og.png'],

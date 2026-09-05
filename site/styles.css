@@ -56,6 +56,14 @@ body {
 	-webkit-text-size-adjust: 100%;
 }
 
+/*
+ * Set by assets/topframe.js when the page is inside someone else's frame.
+ * Not a default, so no-JavaScript readers and crawlers are unaffected.
+ */
+html[data-framed] body {
+	display: none !important;
+}
+
 .skip {
 	position: absolute;
 	left: -9999px;
