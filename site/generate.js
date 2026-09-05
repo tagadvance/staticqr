@@ -1,6 +1,6 @@
 import { inspect } from '/assets/addresses.js';
 import { encode, DataTooLongError } from '/assets/qr.js';
-import { renderCanvas, renderCanvasPlain, renderSvg } from '/assets/render.js';
+import { DEFAULT_BORDER, renderCanvas, renderCanvasPlain, renderSvg } from '/assets/render.js';
 import { decodeImageData, decoderAvailable } from '/assets/decode.js';
 import { format, loadStrings } from '/assets/format.js';
 
@@ -112,6 +112,34 @@ async function renderWarning(text, id) {
 	warning.hidden = false;
 }
 
+/**
+ * Pixels to run the readback against, downscaled if the code was drawn large.
+ *
+ * At the largest size a version 40 code is 4440px square, and decoding that
+ * synchronously on every debounced keystroke blocks the main thread for
+ * seconds. Six pixels per module is far more than a decoder needs — a phone
+ * camera routinely works with two or three — so this costs nothing in
+ * sensitivity and makes the check effectively free.
+ */
+const READBACK_PIXELS_PER_MODULE = 6;
+
+function readbackPixels() {
+	const modules = current.size + DEFAULT_BORDER * 2;
+	const wanted = modules * READBACK_PIXELS_PER_MODULE;
+	if (canvas.width <= wanted) {
+		return canvas
+			.getContext('2d', { willReadFrequently: true })
+			.getImageData(0, 0, canvas.width, canvas.height);
+	}
+
+	const scaled = document.createElement('canvas');
+	scaled.width = wanted;
+	scaled.height = wanted;
+	const context = scaled.getContext('2d', { willReadFrequently: true });
+	context.drawImage(canvas, 0, 0, wanted, wanted);
+	return context.getImageData(0, 0, wanted, wanted);
+}
+
 /** Returns 'pass', 'fail' or 'unknown'. */
 function renderReadback(text) {
 	readback.replaceChildren();
@@ -126,9 +154,7 @@ function renderReadback(text) {
 
 	// Decode the picture that was just drawn, rather than the matrix it came
 	// from. A matrix that is correct can still be drawn unreadably.
-	const context = canvas.getContext('2d', { willReadFrequently: true });
-	const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
-	const decoded = decodeImageData(pixels);
+	const decoded = decodeImageData(readbackPixels());
 
 	if (decoded === text) {
 		readback.className = 'notice ok';
